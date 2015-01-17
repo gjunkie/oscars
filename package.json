@@ -1,0 +1,29 @@
+{
+  "name": "oscars",
+  "version": "0.0.1",
+  "description": "Oscars voting",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^0.9.0",
+    "bower": "^1.3.12",
+    "grunt": "^0.4.5",
+    "handlebars": "^2.0.0",
+    "handlebars-layouts": "^1.0.0",
+    "hapi": "^8.1.0",
+    "lodash-node": "^2.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gjunkie/oscars.git"
+  },
+  "author": "Freddie Carthy <fcarthy@gmail.com> (https://github.com/gjunkie)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gjunkie/oscars/issues"
+  },
+  "homepage": "https://github.com/gjunkie/oscars"
+}
