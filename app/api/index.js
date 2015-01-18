@@ -8,7 +8,8 @@ exports.register = function(plugin, options, next) {
   plugin.route([
 
     //get
-    { method: 'GET', path: '/api/categories', config: handlers.categories },
+    { method: 'GET', path: '/api/categories', config: handlers.getCategories },
+    { method: 'GET', path: '/api/setup', config: handlers.setUpCategories },
     { method: 'GET', path: '/api/actors', config: handlers.actors },
 
     //post

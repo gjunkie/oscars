@@ -12,7 +12,6 @@ exports.register = function(plugin, options, next) {
 
   plugin.expose('connection', db);
   _.forIn(models, function(value, key) {
-    console.log(key);
     plugin.expose(key, value);
   });
 

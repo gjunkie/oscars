@@ -1,3 +1,4 @@
+//var views = require('./lib/views');
 var apiView = require('./lib/api-view');
 var handlers = require('./handlers/all');
 
@@ -7,10 +8,13 @@ var handlers = require('./handlers/all');
 */
 exports.register = function(plugin, options, next) {
 
+ // views(plugin);
   apiView(plugin);
 
   plugin.route([
     { method: 'GET', path: '/', config: handlers.homepage },
+    { method: 'GET', path: '/setup', config: handlers.setup },
+    { method: 'GET', path: '/add', config: handlers.add },
     { method: 'GET', path: '/actors', config: handlers.actors },
   ]);
 

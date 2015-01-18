@@ -6,12 +6,16 @@
 
   <body>
     <h1>Oscar Vote</h1>
+    <a href="/add">Add Nominees</a>
+
     <ul>
       {{#each categories}}
-        <li>{{this}}</li>
+        <li>{{category}}</li>
+        {{#each nominees}}
+          <li>{{name}}</li>
+        {{/each}}
       {{/each}}
     </ul>
   </body>
 
-  <script src="myscripts.js"></script>
 </html>

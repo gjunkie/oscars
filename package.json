@@ -16,6 +16,11 @@
     "require-all": "^1.0.0"
   },
   "devDependencies": {
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-nodemon": "^0.3.0",
     "grunt-shell-spawn": "^0.3.1"
   },
   "scripts": {

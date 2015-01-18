@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Oscar Party - Add Nominees</title>
+  </head>
+
+  <body>
+    <h1>Oscar Party</h1>
+    <a href="/">Homepage</a>
+    <h2>Add Nominees</h2>
+
+    <div class="frame">
+      {{#each categories}}
+        <div class="frame--category">
+          <h4>{{category}}</h4>
+          <ul>
+            {{#if nominees}}
+              {{#each nominees}}
+                <li>
+                  {{#if film}}
+                    <input type="text" class="" value="{{name}}">
+                    <input type="text" class="" value="{{director}}">
+                  {{else}}
+                    <input type="text" class="" value="{{name}}">
+                    <input type="text" class="" value="{{film}}">
+                  {{/if}}
+                </li>
+              {{/each}}
+            {{else}}
+              {{#ifequal category 'Best Picture'}}
+                <form action="/api/addfilm" method="POST">
+                  <input type="text" class="" placeholder="Film">
+                  <input type="submit" value="Add">
+                </form>
+              {{else}}
+                <input type="text" class="" placeholder="Name">
+                <input type="text" class="" placeholder="Film">
+              {{/ifequal}}
+            {{/if}}
+          </ul>
+        </div>
+      {{/each}}
+    </div>
+  </body>
+
+  <script src="/dist/scripts.min.js"></script>
+
+</html>
