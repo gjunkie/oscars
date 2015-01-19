@@ -4,14 +4,21 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concurrent: {
-      dev: ['uglify', 'shell']
+      dev: ['uglify', 'shell', 'nodemon', 'watch'],
+      options: {
+        logConcurrentOutput: true
+      }
     },
     uglify: {
       my_target: {
         files: {
-          'dist/scripts.min.js': [
+          'dist/common.min.js': [
+            'bower_components/jquery/dist/jquery.js',
+            'bower_components/formjax/dist/formjax.js'
+          ],
+          'dist/add.min.js': [
             'app/www/public/scripts/add.js',
-           ]
+          ]
         }
       }
     },
@@ -46,6 +53,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
 
   // Default task(s).
-  grunt.registerTask('default', ['concurrent:dev', 'nodemon', 'watch']);
+  grunt.registerTask('default', ['concurrent:dev']);
 
 };

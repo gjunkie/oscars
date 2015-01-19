@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Oscar Party - Add Nominees</title>
-  </head>
-
-  <body>
-    <h1>Oscar Party</h1>
-    <a href="/">Homepage</a>
-    <h2>Add Nominees</h2>
-
+{{#extend "layout"}}
+  {{#content "title"}}Add Nominees{{/content}}
+  {{#content "body"}}
     <div class="frame">
       {{#each categories}}
         <div class="frame--category">
@@ -28,7 +20,7 @@
               {{/each}}
             {{else}}
               {{#ifequal category 'Best Picture'}}
-                <form action="/api/addfilm" method="POST">
+                <form action="/api/add/film" method="POST">
                   <input type="text" class="" placeholder="Film">
                   <input type="submit" value="Add">
                 </form>
@@ -41,8 +33,9 @@
         </div>
       {{/each}}
     </div>
-  </body>
+  {{/content}}
 
-  <script src="/dist/scripts.min.js"></script>
-
-</html>
+  {{#content "scripts"}}
+    <script src="/dist/add.min.js"></script>
+  {{/content}}
+{{/extend}}

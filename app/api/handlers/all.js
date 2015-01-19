@@ -97,35 +97,21 @@ exports.newUser = {
 
         // logic to create user
 
-        done(null, actors);
+        done(null, 'user');
       }
     ]
   }
 };
 
-exports.categories = {
+exports.addFilm = {
   handler: {
     waterfall: [
+      // create user
       function(request, done) {
-        var categories = [
-          'Best Film',
-          'Best Actress'
-        ]
-        done(null, categories);
-      }
-    ]
-  }
-};
 
-exports.actors = {
-  handler: {
-    waterfall: [
-      function(request, done) {
-        var actors = [
-          'Tom Cruise',
-          'Jeremy Renner'
-        ]
-        done(null, actors);
+        console.log('film added');
+
+        done(null, 'good');
       }
     ]
   }

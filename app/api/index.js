@@ -10,10 +10,10 @@ exports.register = function(plugin, options, next) {
     //get
     { method: 'GET', path: '/api/categories', config: handlers.getCategories },
     { method: 'GET', path: '/api/setup', config: handlers.setUpCategories },
-    { method: 'GET', path: '/api/actors', config: handlers.actors },
 
     //post
-    //{ method: 'POST', path: '/api/sample/path/{var}', config: handlers.function },
+    { method: 'POST', path: '/api/add/film', config: handlers.addFilm },
+    //{ method: 'POST', path: '/api/add/path/{var}', config: handlers.function },
 
   ]);
 
