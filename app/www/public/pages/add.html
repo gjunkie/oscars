@@ -21,7 +21,8 @@
             {{else}}
               {{#ifequal category 'Best Picture'}}
                 <form action="/api/add/film" method="POST">
-                  <input type="text" class="" placeholder="Film">
+                  <input type="text" class="" name="title" placeholder="Film">
+                  <input type="hidden" name="category" value="{{category}}">
                   <input type="submit" value="Add">
                 </form>
               {{else}}

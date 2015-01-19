@@ -32,25 +32,25 @@ exports.setUpCategories = {
           'Original Screenplay',
         ]
 
-        var allNominations = [];
+        var allCategories = [];
 
-        var Nomination = request.server.plugins.db.Nomination;
+        var Category = request.server.plugins.db.Category;
         async.each(categories, function(category, cb){
-          Nomination
+          Category
             .findOne({ category: category })
-            .exec(function(err, nomination){
+            .exec(function(err, foundCategory){
               if (err) {
-                return done(Hapi.error.internal('find nomination', err));
+                return done(Hapi.error.internal('find category', err));
               }
-              if (!nomination) {
-                var nominationData = {
+              if (!foundCategory) {
+                var categoryData = {
                   category: category,
                 }
-                Nomination.create(nominationData, function(err, newNomination) {
+                Category.create(categoryData, function(err, newCategory) {
                   if (err) {
-                    return done(Hapi.error.internal('create nomination', err));
+                    return done(Hapi.error.internal('create category', err));
                   }
-                  allNominations.push(newNomination);
+                  allCategories.push(newCategory);
                   cb()
                 });
               } else {
@@ -59,9 +59,9 @@ exports.setUpCategories = {
             });
         }, function(err){
           if (err) {
-            return done(Hapi.error.internal('create each nomination', err));
+            return done(Hapi.error.internal('create each category', err));
           }
-          done(null, allNominations);
+          done(null, allCategories);
         });
       }
     ]
@@ -72,18 +72,18 @@ exports.getCategories = {
   handler: {
     waterfall: [
       function(request, done) {
-        var Nomination = request.server.plugins.db.Nomination;
-        Nomination
+        var Category = request.server.plugins.db.Category;
+        Category
           .find({})
-          .exec(function(err, nominations){
+          .exec(function(err, categories){
             if (err) {
-              return done(Hapi.error.internal('find nominations', err));
+              return done(Hapi.error.internal('find categories', err));
             }
-            done(null, request, nominations);
+            done(null, request, categories);
           });
       },
-      function(request, nominations, done) {
-        done(null, nominations);
+      function(request, categories, done) {
+        done(null, categories);
       }
     ]
   }
@@ -106,12 +106,57 @@ exports.newUser = {
 exports.addFilm = {
   handler: {
     waterfall: [
-      // create user
+      // find film
       function(request, done) {
-
-        console.log('film added');
-
-        done(null, 'good');
+        var Film = request.server.plugins.db.Film;
+        Film
+          .findOne({ title: request.payload.title })
+          .exec(function(err, film){
+            if (err) {
+              return done(Hapi.error.internal('find film', err));
+            }
+            if (!film) {
+              done(null, request);
+            } else {
+              done(null, film);
+            }
+          });
+      },
+      // find category
+      function(request, done) {
+        var Category = request.server.plugins.db.Category;
+        Category
+          .findOne({ category: request.payload.category })
+          .exec(function(err, category){
+            if (err) {
+              return done(Hapi.error.internal('find category', err));
+            }
+            done(null, request, category);
+          });
+      },
+      // create film
+      function(request, category, done) {
+        var Film = request.server.plugins.db.Film;
+        var filmData = {
+          title: request.payload.title,
+          nominations: category
+        }
+        Film.create(filmData, function(err, newFilm) {
+          if (err) {
+            return done(Hapi.error.internal('create film', err));
+          }
+          done(null, request, category, newFilm);
+        });
+      },
+      // update category
+      function(request, category, film, done) {
+        category.nominees.push(film);
+        category.save(function(err, updatedCategory){
+          if (err) {
+            return done(Hapi.error.internal('save category', err));
+          }
+          done(null, updatedCategory);
+        });
       }
     ]
   }

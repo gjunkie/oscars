@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-var nominationSchema = mongoose.Schema({
+var categorySchema = mongoose.Schema({
   category: String,
   nominees: [{
     type: ObjectId,
@@ -9,4 +9,4 @@ var nominationSchema = mongoose.Schema({
   }],
 });
 
-module.exports = mongoose.model('Nomination', nominationSchema);
+module.exports = mongoose.model('Category', categorySchema);
