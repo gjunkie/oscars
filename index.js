@@ -1,29 +1,9 @@
-var http = require('http');
 var Hapi = require('hapi');
-var Handlebars = require('handlebars');
 var mongo = require('mongodb');
-var engine = Handlebars.create();
 
 var server = new Hapi.Server()
 
 server.connection( { port: 8004 } )
-
-server.views({
-  engines: { html: engine },
-  path: __dirname + '/app/www/public/pages',
-  helpersPath: __dirname + '/app/www/lib/helpers',
-  isCached: false
-});
-
-server.route({
-    method: 'GET',
-    path: '/{param*}',
-    handler: {
-        directory: {
-            path: 'dist'
-        }
-    }
-});
 
 server.register([
 

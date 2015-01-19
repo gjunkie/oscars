@@ -13,7 +13,8 @@ exports.register = function(plugin, options, next) {
     { method: 'GET', path: '/api/actors', config: handlers.actors },
 
     //post
-    //{ method: 'POST', path: '/api/sample/path/{var}', config: handlers.function },
+    { method: 'POST', path: '/api/add/film', config: handlers.addFilm },
+    //{ method: 'POST', path: '/api/add/path/{var}', config: handlers.function },
 
   ]);
 
