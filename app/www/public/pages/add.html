@@ -4,31 +4,47 @@
     <div class="frame">
       {{#each categories}}
         <div class="frame--category">
-          <h4>{{category}}</h4>
+          <h4>{{name}}</h4>
           <ul>
             {{#if nominees}}
               {{#each nominees}}
                 <li>
                   {{#if film}}
+                    {{film.title}}
+                    {{film}}
                     <input type="text" class="" value="{{name}}">
                     <input type="text" class="" value="{{director}}">
                   {{else}}
+                    {{artist.name}}
                     <input type="text" class="" value="{{name}}">
                     <input type="text" class="" value="{{film}}">
+                    <input type="text" class="" value="{{film}}">
                   {{/if}}
+                  <form action="/api/add/film" method="POST">
+                    <input type="text" class="" name="title" placeholder="Film">
+                    <input type="hidden" name="category" value="{{../category}}">
+                    <input type="submit" value="Nominate">
+                  </form>
                 </li>
               {{/each}}
             {{else}}
-              {{#ifequal category 'Best Picture'}}
-                <form action="/api/add/film" method="POST">
-                  <input type="text" class="" name="title" placeholder="Film">
-                  <input type="hidden" name="category" value="{{category}}">
-                  <input type="submit" value="Add">
-                </form>
-              {{else}}
-                <input type="text" class="" placeholder="Name">
-                <input type="text" class="" placeholder="Film">
-              {{/ifequal}}
+              {{#times slots}}
+                {{#ifequal ../primary 'Film'}}
+                  <form action="/api/add/film" method="POST">
+                    <input type="text" class="" name="title" placeholder="{{../../primary}}">
+                    <input type="text" name="director" placeholder="{{../../secondary}}">
+                    <input type="hidden" name="category" value="{{../../name}}">
+                    <input type="submit" value="Nominate">
+                  </form>
+                {{else}}
+                  <form action="/api/add/artist" method="POST">
+                    <input type="text" class="" name="name" placeholder="{{../../primary}}">
+                    <input type="text" name="film" placeholder="{{../../secondary}}">
+                    <input type="hidden" name="category" value="{{../../name}}">
+                    <input type="submit" value="Nominate">
+                  </form>
+                {{/ifequal}}
+              {{/times}}
             {{/if}}
           </ul>
         </div>

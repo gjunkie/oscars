@@ -8,10 +8,10 @@ var filmSchema = mongoose.Schema({
     ref: 'Nomination'
   }],
   released: { type: Date, default: Date.now },
-  directors: [{
+  director: {
     type: ObjectId,
     ref: 'Artist'
-  }],
+  },
   actors: [{
     type: ObjectId,
     ref: 'Artist'

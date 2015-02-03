@@ -10,6 +10,13 @@ exports.homepage = {
           }
         }
       ],
+      before: function(request, reply, data) {
+        //console.log(data.categories);
+        if (!data.categories.length) {
+          console.log('we dont have cats');
+          return reply.redirect('/setup');
+        }
+      },
       view: 'index'
     }
   }
@@ -26,7 +33,12 @@ exports.setup = {
           }
         }
       ],
-      view: 'index'
+      before: function(request, reply, data) {
+        if (data.categories.length) {
+          console.log('we have cats');
+          return reply.redirect('/');
+        }
+      }
     }
   }
 };
@@ -38,10 +50,14 @@ exports.add = {
         {
           variable: 'categories',
           url: function(request) {
+            // this no longer exists!!
             return '/api/categories';
           }
         }
       ],
+      before: function(request, reply, data) {
+        console.log(data);
+      },
       view: 'add'
     }
   }

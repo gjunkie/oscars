@@ -10,9 +10,9 @@
 
     <ul>
       {{#each categories}}
-        <li>{{category}}</li>
+        <li>{{name}}</li>
         {{#each nominees}}
-          <li>{{name}}</li>
+          <li>--{{film.title}} ({{film.director.name}})</li>
         {{/each}}
       {{/each}}
     </ul>
