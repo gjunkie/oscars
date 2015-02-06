@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Vote On The Oscars</title>
-  </head>
-
-  <body>
+{{#extend "layout"}}
+  {{#content "title"}}Add Nominees{{/content}}
+  {{#content "body"}}
     <h1>Oscar Vote</h1>
+    <a href="/login">Login</a>
     <a href="/add">Add Nominees</a>
 
     <ul>
@@ -16,6 +13,5 @@
         {{/each}}
       {{/each}}
     </ul>
-  </body>
-
-</html>
+  {{/content}}
+{{/extend}}

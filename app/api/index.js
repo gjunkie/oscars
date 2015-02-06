@@ -1,4 +1,5 @@
 var handlers = require('./handlers/all');
+var user = require('./handlers/user');
 var waterfallHandler = require('./lib/waterfall-handler');
 
 exports.register = function(plugin, options, next) {
@@ -8,11 +9,13 @@ exports.register = function(plugin, options, next) {
   plugin.route([
 
     //get
+    { method: 'GET', path: '/api/user/login', config: user.login },
     { method: 'GET', path: '/api/categories', config: handlers.getCategories },
     { method: 'GET', path: '/api/setup', config: handlers.setUpCategories },
 
     //post
     { method: 'POST', path: '/api/add/film', config: handlers.addFilm },
+    { method: 'POST', path: '/api/add/artist', config: handlers.addArtist },
     //{ method: 'POST', path: '/api/add/path/{var}', config: handlers.function },
 
   ]);

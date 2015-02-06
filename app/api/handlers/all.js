@@ -255,7 +255,6 @@ exports.getCategories = {
         var prettyCats = [];
         async.each(categories, function(category, callback){
           var type = (category.primary == 'Film') ? 'film director' : 'artist';
-          console.log(category.nominees);
           var nomineeGroup = {
             name: category.name,
             primary: category.primary,
@@ -410,6 +409,112 @@ exports.addFilm = {
       // update category
       function(request, category, nominee, done) {
         category.nominees.push(nominee);
+        category.slots--;
+        category.save(function(err, updatedCategory){
+          if (err) {
+            return done(Hapi.error.internal('save category', err));
+          }
+          done(null, updatedCategory);
+        });
+      }
+    ]
+  }
+};
+
+exports.addArtist = {
+  handler: {
+    waterfall: [
+      // find artist
+      function(request, done) {
+        var Artist = request.server.plugins.db.Artist;
+        Artist
+          .findOne({ name: request.payload.name })
+          .exec(function(err, artist){
+            if (err) {
+              return done(Hapi.error.internal('find artist', err));
+            }
+            if (!artist) {
+              done(null, request);
+            } else {
+              return done(Hapi.error.internal('artist exists', err));
+            }
+          });
+      },
+      // find category
+      function(request, done) {
+        var Category = request.server.plugins.db.Category;
+        Category
+          .findOne({ name: request.payload.category })
+          .exec(function(err, category){
+            if (err) {
+              return done(Hapi.error.internal('find category', err));
+            }
+            done(null, request, category);
+          });
+      },
+      // find/create film
+      function(request, category, done) {
+        var Film = request.server.plugins.db.Film;
+        Film
+          .findOne({ title: request.payload.film })
+          .exec(function(err, film){
+            if (err) {
+              return done(Hapi.error.internal('find film', err));
+            }
+            if (!film) {
+              var filmData = {
+                title: request.payload.title,
+                nominations: category
+              }
+              Film.create(filmData, function(err, newFilm) {
+                if (err) {
+                  return done(Hapi.error.internal('create film', err));
+                }
+                done(null, request, newFilm, category);
+              });
+            } else {
+              done(null, request, film, category);
+            }
+          });
+      },
+      // create artist
+      function(request, film, category, done) {
+        var Artist = request.server.plugins.db.Artist;
+        var artistData = {
+          name: request.payload.name,
+        }
+        Artist.create(artistData, function(err, newArtist) {
+          if (err) {
+            return done(Hapi.error.internal('create artist', err));
+          }
+          newArtist.nominations.push(category.name);
+          newArtist.save(function(err, updatedArtist){
+            if (err) {
+              return done(Hapi.error.internal('save artist', err));
+            }
+            done(null, request, updatedArtist, category);
+          });
+        });
+      },
+      // create nominee
+      function(request, artist, category, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        var nomineeData = {
+          name: request.payload.name,
+          artist: artist,
+          nominations: category
+        }
+        Nominee.create(nomineeData, function(err, newNominee) {
+          if (err) {
+            return done(Hapi.error.internal('create nominee', err));
+          }
+          done(null, request, category, newNominee);
+        });
+      },
+      // update category
+      function(request, category, nominee, done) {
+        category.nominees.push(nominee);
+        category.slots--;
         category.save(function(err, updatedCategory){
           if (err) {
             return done(Hapi.error.internal('save category', err));

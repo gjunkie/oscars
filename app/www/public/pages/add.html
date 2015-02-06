@@ -1,52 +1,42 @@
 {{#extend "layout"}}
   {{#content "title"}}Add Nominees{{/content}}
   {{#content "body"}}
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
     <div class="frame">
       {{#each categories}}
         <div class="frame--category">
           <h4>{{name}}</h4>
-          <ul>
-            {{#if nominees}}
-              {{#each nominees}}
-                <li>
-                  {{#if film}}
-                    {{film.title}}
-                    {{film}}
-                    <input type="text" class="" value="{{name}}">
-                    <input type="text" class="" value="{{director}}">
-                  {{else}}
-                    {{artist.name}}
-                    <input type="text" class="" value="{{name}}">
-                    <input type="text" class="" value="{{film}}">
-                    <input type="text" class="" value="{{film}}">
-                  {{/if}}
-                  <form action="/api/add/film" method="POST">
-                    <input type="text" class="" name="title" placeholder="Film">
-                    <input type="hidden" name="category" value="{{../category}}">
-                    <input type="submit" value="Nominate">
-                  </form>
-                </li>
-              {{/each}}
-            {{else}}
-              {{#times slots}}
-                {{#ifequal ../primary 'Film'}}
-                  <form action="/api/add/film" method="POST">
-                    <input type="text" class="" name="title" placeholder="{{../../primary}}">
-                    <input type="text" name="director" placeholder="{{../../secondary}}">
-                    <input type="hidden" name="category" value="{{../../name}}">
-                    <input type="submit" value="Nominate">
-                  </form>
+          {{#if nominees}}
+            {{#each nominees}}
+              <div>
+                {{#if film}}
+                  <input type="text" class="" value="{{film.title}}" disabled>
+                  <input type="text" class="" value="{{film.director.name}}" disabled>
                 {{else}}
-                  <form action="/api/add/artist" method="POST">
-                    <input type="text" class="" name="name" placeholder="{{../../primary}}">
-                    <input type="text" name="film" placeholder="{{../../secondary}}">
-                    <input type="hidden" name="category" value="{{../../name}}">
-                    <input type="submit" value="Nominate">
-                  </form>
-                {{/ifequal}}
-              {{/times}}
-            {{/if}}
-          </ul>
+                  <input type="text" class="" value="{{name}}">
+                  <input type="text" class="" value="{{film}}">
+                {{/if}}
+              </div>
+            {{/each}}
+          {{/if}}
+          {{#times slots}}
+            {{#ifequal ../primary 'Film'}}
+              <form action="/api/add/film" method="POST">
+                <input type="text" class="" name="title" placeholder="{{../../primary}}">
+                <input type="text" name="director" placeholder="{{../../secondary}}">
+                <input type="hidden" name="category" value="{{../../name}}">
+                <input type="submit" value="Nominate">
+              </form>
+            {{else}}
+              <form action="/api/add/artist" method="POST">
+                <input type="text" class="" name="name" placeholder="{{../../primary}}">
+                <input type="text" name="film" placeholder="{{../../secondary}}">
+                <input type="hidden" name="category" value="{{../../name}}">
+                <input type="submit" value="Nominate">
+              </form>
+            {{/ifequal}}
+          {{/times}}
         </div>
       {{/each}}
     </div>

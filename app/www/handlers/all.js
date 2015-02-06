@@ -11,7 +11,6 @@ exports.homepage = {
         }
       ],
       before: function(request, reply, data) {
-        //console.log(data.categories);
         if (!data.categories.length) {
           console.log('we dont have cats');
           return reply.redirect('/setup');
@@ -50,13 +49,12 @@ exports.add = {
         {
           variable: 'categories',
           url: function(request) {
-            // this no longer exists!!
             return '/api/categories';
           }
         }
       ],
       before: function(request, reply, data) {
-        console.log(data);
+        console.log(data.categories[0].nominees.length);
       },
       view: 'add'
     }

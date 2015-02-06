@@ -2,8 +2,10 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var userSchema = mongoose.Schema({
-  name: String,
-  email: String,
+  id: { type: String, required: true },
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  creationDate: { type: Date, required: true, default: Date.now },
   votes: [{
     selected: { type: Boolean, default: false },
     nominee: {
