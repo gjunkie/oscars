@@ -10,13 +10,17 @@
           {{#if nominees}}
             {{#each nominees}}
               <div>
-                {{#if film}}
+                {{#ifequal type 'film'}}
                   <input type="text" class="" value="{{film.title}}" disabled>
                   <input type="text" class="" value="{{film.director.name}}" disabled>
                 {{else}}
                   <input type="text" class="" value="{{name}}">
-                  <input type="text" class="" value="{{film}}">
-                {{/if}}
+                  {{#each nominations}}
+                    {{#ifequal ../category ../../../name}}
+                      <input type="text" class="" value="{{../../film.title}}">
+                    {{/ifequal}}
+                  {{/each}}
+                {{/ifequal}}
               </div>
             {{/each}}
           {{/if}}
@@ -31,7 +35,7 @@
             {{else}}
               <form action="/api/add/artist" method="POST">
                 <input type="text" class="" name="name" placeholder="{{../../primary}}">
-                <input type="text" name="film" placeholder="{{../../secondary}}">
+                <input type="text" name="title" placeholder="{{../../secondary}}">
                 <input type="hidden" name="category" value="{{../../name}}">
                 <input type="submit" value="Nominate">
               </form>

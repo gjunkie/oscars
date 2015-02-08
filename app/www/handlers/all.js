@@ -53,9 +53,6 @@ exports.add = {
           }
         }
       ],
-      before: function(request, reply, data) {
-        console.log(data.categories[0].nominees.length);
-      },
       view: 'add'
     }
   }

@@ -3,6 +3,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var nomineeSchema = mongoose.Schema({
   name: String,
+  category: String,
   type: String,
   artist: {
     type: ObjectId,

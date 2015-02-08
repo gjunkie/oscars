@@ -223,7 +223,6 @@ exports.getCategories = {
     waterfall: [
       function(request, done) {
         var Category = request.server.plugins.db.Category;
-        var Film = request.server.plugins.db.Film;
         Category
           .find()
           .populate('nominees')
@@ -231,51 +230,43 @@ exports.getCategories = {
             if (err) {
               return done(Hapi.error.internal('find categories', err));
             }
-
-            var options = {
-              path: 'nominees.film',
-              model: 'Film'
-            }
-            Category.populate(categories, options, function(err, cats) {
-              if (err) {
-                return done(Hapi.error.internal('populate film', err));
-              }
-              var options = {
-                path: 'nominees.film.director',
-                model: 'Artist'
-              }
-              Category.populate(cats, options, function(err, supercats) {
-                done(null, request, supercats);
-              });
-            });
+            done(null, request, categories);
           });
       },
+      // populate a nominee's film if it has one
       function(request, categories, done) {
-        var Nominee = request.server.plugins.db.Nominee;
-        var prettyCats = [];
-        async.each(categories, function(category, callback){
-          var type = (category.primary == 'Film') ? 'film director' : 'artist';
-          var nomineeGroup = {
-            name: category.name,
-            primary: category.primary,
-            secondary: category.secondary,
-            slots: category.slots,
-            nominees: category.nominees
-          };
-          async.each(category.nominees, function(nominee, cb){
-            Nominee
-              .findOne({ _id: nominee._id })
-              .populate(type)
-              .exec(function(err, foundNominee){
-                nomineeGroup.nominees.push(foundNominee);
-                cb();
-              })
+        var filmOptions = {
+          path: 'nominees.film',
+          model: 'Film'
+        }
+        var Category = request.server.plugins.db.Category;
+        Category.populate(categories, filmOptions, function(err, cats) {
+          if (err) {
+            return done(Hapi.error.internal('populate film', err));
+          }
+          var options = {
+            path: 'nominees.film.director',
+            model: 'Artist'
+          }
+          Category.populate(cats, options, function(err, supercats) {
+            done(null, request, supercats);
           });
-          callback();
-          prettyCats.push(nomineeGroup);
         });
-        done(null, prettyCats);
-      }
+      },
+      // populate a nominee's artist if it has one
+      function(request, categories, done) {
+        var artistOptions = {
+          path: 'nominees.artist',
+          model: 'Artist'
+        }
+        var Category = request.server.plugins.db.Category;
+        Category.populate(categories, artistOptions, function(err, cats) {
+          if (err) {
+            return done(Hapi.error.internal('populate artist', err));
+          }
+          done(null, cats);
+        });
+      },
     ]
   }
 };
@@ -395,7 +386,9 @@ exports.addFilm = {
       function(request, category, film, done) {
         var Nominee = request.server.plugins.db.Nominee;
         var nomineeData = {
-          name: request.payload.category,
+          name: film.title,
+          category: category.name,
+          type: 'film',
           film: film,
           nominations: category
         }
@@ -456,7 +449,7 @@ exports.addArtist = {
       function(request, category, done) {
         var Film = request.server.plugins.db.Film;
         Film
-          .findOne({ title: request.payload.film })
+          .findOne({ title: request.payload.title })
           .exec(function(err, film){
             if (err) {
               return done(Hapi.error.internal('find film', err));
@@ -473,6 +466,7 @@ exports.addArtist = {
                 done(null, request, newFilm, category);
               });
             } else {
+              // update found film here
               done(null, request, film, category);
             }
           });
@@ -487,21 +481,27 @@ exports.addArtist = {
           if (err) {
             return done(Hapi.error.internal('create artist', err));
           }
-          newArtist.nominations.push(category.name);
+          var nominationData = {
+            category: request.payload.category,
+            film: film
+          }
+          newArtist.nominations.push(nominationData);
           newArtist.save(function(err, updatedArtist){
             if (err) {
               return done(Hapi.error.internal('save artist', err));
             }
-            done(null, request, updatedArtist, category);
+            done(null, request, film, updatedArtist, category);
           });
         });
       },
       // create nominee
-      function(request, artist, category, done) {
+      function(request, film, artist, category, done) {
         var Nominee = request.server.plugins.db.Nominee;
         var nomineeData = {
-          name: request.payload.name,
-          artist: artist,
+          name: artist.name,
+          category: category.name,
+          type: 'artist',
+          film: film,
           nominations: category
         }
         Nominee.create(nomineeData, function(err, newNominee) {

@@ -48,12 +48,9 @@ server.register([
         }
       },
       handler: function (request, reply) {
-        //console.log(request.auth);
-console.log('handled it');
         request.auth.credentials.timestamp = new Date();
         request.auth.session.set(request.auth.credentials);
         request.server.plugins.api.get(request, '/api/user/login', function(response){
-  console.log('redirecting');
           return reply.redirect('/');
         });
       }

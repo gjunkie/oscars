@@ -3,7 +3,13 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var artistSchema = mongoose.Schema({
   name: String,
-  nominations: [String]
+  nominations: [{
+    category: String,
+    film: {
+      type: ObjectId,
+      ref: 'Film'
+    }
+  }]
 });
 
 module.exports = mongoose.model('Artist', artistSchema);
