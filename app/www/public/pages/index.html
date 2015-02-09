@@ -1,17 +1,59 @@
 {{#extend "layout"}}
   {{#content "title"}}Add Nominees{{/content}}
+  {{#content "styles"}}
+    <link href="dist/home.min.css" rel="stylesheet" type="text/css">
+  {{/content}}
   {{#content "body"}}
-    <h1>Oscar Vote</h1>
+    <h1>Appcademy Awards</h1>
     <a href="/login">Login</a>
+    <a href="/vote">Vote</a>
+    <a href="/profile">Profile</a>
     <a href="/add">Add Nominees</a>
 
     <ul>
       {{#each categories}}
-        <li>{{name}}</li>
-        {{#each nominees}}
-          <li>--{{film.title}} ({{film.director.name}})</li>
-        {{/each}}
+        <li>
+          <h2>{{name}}</h2>
+          <form action="/api/winner" method="POST">
+            {{#each nominees}}
+              <div class="nominee">
+                <div class="nominee--votes">
+                  {{#each votes}}
+                    <a title="{{name}}" style="background-color:{{color}};" class="nominee--mark"></a>
+                  {{/each}}
+                </div>
+                <div class="nominee--info">
+                  <fieldset>
+                    {{#ifequal type 'film'}}
+                      <label for="{{slug}}">
+                        <h4>{{film.title}}</h4>
+                        <h5>{{film.director.name}}</h5>
+                      </label>
+                      <input type="radio" name="name" id="{{slug}}" value="{{film.title}}">
+                    {{else}}
+                      <label for="{{slug}}">
+                        <h4>{{name}}</h4>
+                        <h5>{{film.title}}</h5>
+                      </label>
+                      <input type="radio" name="name" id="{{slug}}" value="{{name}}">
+                    {{/ifequal}}
+                  </fieldset>
+                </div>
+                <div class="nominee--favorites">
+                  {{#each favorites}}
+                    {{user}}
+                    <a title="{{name}}" style="background-color:{{color}};" class="nominee--mark"></a>
+                  {{/each}}
+                </div>
+              </div>
+            {{/each}}
+            <input type="hidden" name="category" value="{{name}}">
+          </form>
+        </li>
       {{/each}}
     </ul>
+  {{/content}}
+  {{#content "scripts"}}
+    <script src="/dist/home.min.js"></script>
   {{/content}}
 {{/extend}}

@@ -1,0 +1,32 @@
+
+{{#extend "layout"}}
+  {{#content "title"}}Add Nominees{{/content}}
+  {{#content "styles"}}
+    <link href="dist/spectrum.min.css" rel="stylesheet" type="text/css">
+  {{/content}}
+  {{#content "body"}}
+    <h1>Appcademy Awards</h1>
+    <a href="/">Home</a>
+    <a href="/vote">Vote</a>
+    <a href="/profile">Profile</a>
+    <a href="/add">Add Nominees</a>
+
+    <div class="profile">
+      <form action="/api/update/profile" method="POST">
+        <div>
+          <label for="name">User Name</label>
+          <input type="text" id="name" name="name" value="{{user.name}}">
+        </div>
+        <div>
+          <label for="color">Color</label>
+          <input type="text" id="color" name="color" value="{{user.color}}">
+        </div>
+        <input type="submit" value="Update">
+      </form>
+    </div>
+  {{/content}}
+
+  {{#content "scripts"}}
+    <script src="/dist/profile.min.js"></script>
+  {{/content}}
+{{/extend}}

@@ -3,10 +3,8 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var filmSchema = mongoose.Schema({
   title: String,
-  nominations: [{
-    type: ObjectId,
-    ref: 'Nomination'
-  }],
+  slug: String,
+  nominations: [String],
   released: { type: Date, default: Date.now },
   director: {
     type: ObjectId,

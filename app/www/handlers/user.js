@@ -1,20 +1,32 @@
 
-exports.reg = {
+exports.vote = {
   handler: {
     apiView: {
       requests: [
+        {
+          variable: 'categories',
+          url: function(request) {
+            return '/api/categories';
+          }
+        }
       ],
-      view: 'register'
+      view: 'vote'
     }
   }
 };
 
-exports.login = {
+exports.profile = {
   handler: {
     apiView: {
       requests: [
+        {
+          variable: 'user',
+          url: function(request) {
+            return '/api/user/profile';
+          }
+        }
       ],
-      view: 'login'
+      view: 'profile'
     }
   }
 };

@@ -1,0 +1,73 @@
+{{#extend "layout"}}
+  {{#content "title"}}Add Nominees{{/content}}
+    <script src="/dist/common.min.js"></script>
+
+  {{#content "styles"}}
+    <link href="dist/vote.min.css" rel="stylesheet" type="text/css">
+  {{/content}}
+
+  {{#content "body"}}
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+
+    <h1>Vote</h1>
+
+    <div class="vote">
+      <ul>
+        {{#each categories}}
+          <li class="vote-category">
+            <h3>{{name}}</h3>
+            <div class="vote-forms">
+              <form action="/api/vote" method="POST">
+                <div class="heading">Winner</div>
+                <fieldset>
+                {{#each nominees}}
+                  {{#ifequal type 'film'}}
+                    <input type="radio" name="name" id="{{slug}}" value="{{film.title}}">
+                  {{else}}
+                    <input type="radio" name="name" id="{{slug}}" value="{{name}}">
+                  {{/ifequal}}
+                {{/each}}
+                <input type="hidden" name="category" value="{{name}}">
+                </fieldset>
+              </form>
+              <form action="/api/favorite" method="POST">
+                <div class="heading">Favorite</div>
+                <fieldset>
+                {{#each nominees}}
+                  {{#ifequal type 'film'}}
+                    <input type="radio" name="name" id="{{slug}}" value="{{film.title}}">
+                  {{else}}
+                    <input type="radio" name="name" id="{{slug}}" value="{{name}}">
+                  {{/ifequal}}
+                {{/each}}
+                <input type="hidden" name="category" value="{{name}}">
+                </fieldset>
+              </form>
+            </div>
+            <div class="vote--nominees">
+              {{#each nominees}}
+                {{#ifequal type 'film'}}
+                  <div class="vote--nominee">
+                    <div class="vote--nominee-primary">{{film.title}}</div>
+                    <div class="vote--nominee-secondary">{{film.director.name}}</div>
+                  </div>
+                {{else}}
+                  <div class="vote--nominee">
+                    <div class="vote--nominee-primary">{{name}}</div>
+                    <div class="vote--nominee-secondary">{{film.title}}</div>
+                  </div>
+                {{/ifequal}}
+              {{/each}}
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+  {{/content}}
+
+  {{#content "scripts"}}
+    <script src="/dist/vote.min.js"></script>
+  {{/content}}
+{{/extend}}

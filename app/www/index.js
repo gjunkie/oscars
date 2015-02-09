@@ -30,7 +30,8 @@ exports.register = function(plugin, options, next) {
     { method: 'GET', path: '/actors', config: nominees.actors },
 
     // user pages
-    { method: 'GET', path: '/register', config: user.reg },
+    { method: 'GET', path: '/vote', config: user.vote },
+    { method: 'GET', path: '/profile', config: user.profile },
   ]);
 
   next();

@@ -1,0 +1,3 @@
+
+$("form").formjax();
+$("#color").spectrum();

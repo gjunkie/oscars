@@ -192,6 +192,7 @@ exports.setUpCategories = {
               if (!foundCategory) {
                 var categoryData = {
                   name: category.name,
+                  slug: category.slug,
                   primary: category.primary,
                   secondary: category.secondary,
                   slots: category.slots
@@ -230,7 +231,19 @@ exports.getCategories = {
             if (err) {
               return done(Hapi.error.internal('find categories', err));
             }
-            done(null, request, categories);
+            var votes = {
+              path: 'nominees.votes',
+              model: 'User'
+            }
+            Category.populate(categories, votes, function(err, supercats) {
+              var favorites = {
+                path: 'nominees.favorites',
+                model: 'User'
+              }
+              Category.populate(supercats, favorites, function(err, finalcats) {
+                done(null, request, finalcats);
+              });
+            });
           });
       },
       // populate a nominee's film if it has one
@@ -293,39 +306,9 @@ exports.getNominees = {
   }
 };
 
-exports.newUser = {
-  handler: {
-    waterfall: [
-      // create user
-      function(request, done) {
-
-        // logic to create user
-
-        done(null, 'user');
-      }
-    ]
-  }
-};
-
 exports.addFilm = {
   handler: {
     waterfall: [
-      // find film
-      function(request, done) {
-        var Film = request.server.plugins.db.Film;
-        Film
-          .findOne({ title: request.payload.title })
-          .exec(function(err, film){
-            if (err) {
-              return done(Hapi.error.internal('find film', err));
-            }
-            if (!film) {
-              done(null, request);
-            } else {
-              return done(Hapi.error.internal('film exists', err));
-            }
-          });
-      },
       // find category
       function(request, done) {
         var Category = request.server.plugins.db.Category;
@@ -338,19 +321,31 @@ exports.addFilm = {
             done(null, request, category);
           });
       },
-      // create film
+      // find/create film
       function(request, category, done) {
         var Film = request.server.plugins.db.Film;
         var filmData = {
           title: request.payload.title,
+          slug: request.payload.title.split(' ').join('-').toLowerCase(),
           nominations: category
         }
-        Film.create(filmData, function(err, newFilm) {
-          if (err) {
-            return done(Hapi.error.internal('create film', err));
-          }
-          done(null, request, category, newFilm);
-        });
+        Film
+          .findOne({ title: request.payload.title })
+          .exec(function(err, film){
+            if (err) {
+              return done(Hapi.error.internal('find film', err));
+            }
+            if (!film) {
+              Film.create(filmData, function(err, newFilm) {
+                if (err) {
+                  return done(Hapi.error.internal('create film', err));
+                }
+                done(null, request, category, newFilm);
+              });
+            } else {
+              done(null, request, category, film);
+            }
+          });
       },
       // create artist
       function(request, category, film, done) {
@@ -363,7 +358,8 @@ exports.addFilm = {
             }
             if (!artist) {
               artistData = {
-                name: request.payload.director
+                name: request.payload.director,
+                slug: request.payload.director.split(' ').join('-').toLowerCase()
               }
               Artist.create(artistData, function(err, newArtist) {
                 if (err) {
@@ -387,10 +383,10 @@ exports.addFilm = {
         var Nominee = request.server.plugins.db.Nominee;
         var nomineeData = {
           name: film.title,
+          slug: film.title.split(' ').join('-').toLowerCase(),
           category: category.name,
           type: 'film',
-          film: film,
-          nominations: category
+          film: film
         }
         Nominee.create(nomineeData, function(err, newNominee) {
           if (err) {
@@ -457,13 +453,19 @@ exports.addArtist = {
             if (!film) {
               var filmData = {
                 title: request.payload.title,
-                nominations: category
+                slug: request.payload.title.split(' ').join('-').toLowerCase()
               }
               Film.create(filmData, function(err, newFilm) {
                 if (err) {
                   return done(Hapi.error.internal('create film', err));
                 }
-                done(null, request, newFilm, category);
+                newFilm.nominations.push(category.name);
+                newFilm.save(function(err, updatedFilm){
+                  if (err) {
+                    return done(Hapi.error.internal('update film', err));
+                  }
+                  done(null, request, updatedFilm, category);
+                });
               });
             } else {
               // update found film here
@@ -476,6 +478,7 @@ exports.addArtist = {
         var Artist = request.server.plugins.db.Artist;
         var artistData = {
           name: request.payload.name,
+          slug: request.payload.name.split(' ').join('-').toLowerCase(),
         }
         Artist.create(artistData, function(err, newArtist) {
           if (err) {
@@ -483,6 +486,7 @@ exports.addArtist = {
           }
           var nominationData = {
             category: request.payload.category,
+            slug: request.payload.category.split(' ').join('-').toLowerCase(),
             film: film
           }
           newArtist.nominations.push(nominationData);
@@ -499,10 +503,10 @@ exports.addArtist = {
         var Nominee = request.server.plugins.db.Nominee;
         var nomineeData = {
           name: artist.name,
+          slug: artist.name.split(' ').join('-').toLowerCase(),
           category: category.name,
           type: 'artist',
-          film: film,
-          nominations: category
+          film: film
         }
         Nominee.create(nomineeData, function(err, newNominee) {
           if (err) {
@@ -525,3 +529,217 @@ exports.addArtist = {
     ]
   }
 };
+
+exports.vote = {
+  handler: {
+    waterfall: [
+      // find user
+      function(request, done) {
+        var User = request.server.plugins.db.User;
+        User
+          .findOne({ id: request.auth.credentials.profile.raw.id })
+          .exec(function(err, user){
+            if (err) {
+              return done(Hapi.error.internal('find user', err));
+            }
+            done(null, request, user);
+          });
+      },
+      // remove vote from previously voted nominees
+      function(request, user, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        Nominee
+          .find()
+          .exec(function(err, nominees) {
+            async.each(nominees, function(nominee, cb) {
+              var cleanVotes = _.reject(nominee.votes, function(vote) {
+                vote.id == request.auth.credentials.profile.raw.id;
+              });
+              nominee.votes = cleanVotes;
+              nominee.save(function(err, updatedNominee){
+                if (err) {
+                  return done(Hapi.error.internal('save nominee', err));
+                }
+                cb();
+              });
+            }, function(err) {
+              done(null, request, user);
+            });
+          })
+      },
+      // find selected nominee and add vote
+      function(request, user, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        Nominee
+          .findOne({
+            category: request.payload.category,
+            name: request.payload.name
+          })
+          .exec(function(err, nominee){
+            if (err) {
+              return done(Hapi.error.internal('find nominee', err));
+            }
+            nominee.votes.push(user);
+            nominee.save(function(err, updatedNominee){
+              if (err) {
+                return done(Hapi.error.internal('save nominee', err));
+              }
+              done(null, updatedNominee);
+            });
+          });
+      },
+    ]
+  }
+};
+
+exports.favorite = {
+  handler: {
+    waterfall: [
+      // find user
+      function(request, done) {
+        var User = request.server.plugins.db.User;
+        User
+          .findOne({ id: request.auth.credentials.profile.raw.id })
+          .exec(function(err, user){
+            if (err) {
+              return done(Hapi.error.internal('find user', err));
+            }
+            done(null, request, user);
+          });
+      },
+      // remove favorite from previously favorited nominees
+      function(request, user, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        Nominee
+          .find()
+          .exec(function(err, nominees) {
+            async.each(nominees, function(nominee, cb) {
+              var cleanFavorites = _.reject(nominee.favorites, function(favorite) {
+                favorite.id == request.auth.credentials.profile.raw.id;
+              });
+              nominee.favorites = cleanFavorites;
+              nominee.save(function(err, updatedNominee){
+                if (err) {
+                  return done(Hapi.error.internal('save nominee', err));
+                }
+                cb();
+              });
+            }, function(err) {
+              done(null, request, user);
+            });
+          })
+      },
+      // find selected nominee and add favorite
+      function(request, user, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        Nominee
+          .findOne({
+            category: request.payload.category,
+            name: request.payload.name
+          })
+          .exec(function(err, nominee){
+            if (err) {
+              return done(Hapi.error.internal('find nominee', err));
+            }
+            nominee.favorites.push(user);
+            nominee.save(function(err, updatedNominee){
+              if (err) {
+                return done(Hapi.error.internal('save nominee', err));
+              }
+              done(null, updatedNominee);
+            });
+          });
+      },
+    ]
+  }
+};
+
+exports.winner = {
+  handler: {
+    waterfall: [
+      // find category
+      function(request, done) {
+        var Category = request.server.plugins.db.Category;
+        Category
+          .findOne({ name: request.payload.category })
+          .populate('nominees')
+          .exec(function(err, category){
+            if (err) {
+              return done(Hapi.error.internal('find category', err));
+            }
+            done(null, request, category);
+          });
+      },
+      // reset all nominees to be non-winners
+      function(request, category, done) {
+        async.each(category.nominees, function(nominee, cb) {
+          nominee.winner = false;
+          nominee.save(function(err, updatedNominee){
+            if (err) {
+              return done(Hapi.error.internal('save nominee', err));
+            }
+            cb();
+          });
+        }, function(err) {
+          done(null, request, category);
+        });
+      },
+      // mark nominee as the winner
+      function(request, category, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        Nominee
+          .findOne({
+            category: request.payload.category,
+            name: request.payload.name
+          })
+          .exec(function(err, nominee){
+            nominee.winner = true;
+            nominee.save(function(err, updatedNominee){
+              if (err) {
+                return done(Hapi.error.internal('save nominee', err));
+              }
+              done(null, request);
+            });
+          });
+      },
+      // reset all counts to zero
+      function(request, done) {
+        var User = request.server.plugins.db.User;
+        User
+          .find()
+          .exec(function(err, users){
+            async.each(users, function(user, cb) {
+              user.correct = 0;
+              cb();
+            }, function(err) {
+              done(null, request);
+            });
+          });
+      },
+      // tally correct guesses for everyone
+      function(request, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        Nominee
+          .find()
+          .populate('votes')
+          .exec(function(err, nominees){
+            async.each(nominees, function(nominee, cb) {
+              _.map(nominee.votes, function(user){
+                if (nominee.winner) {
+                  user.correct++;
+                }
+              });
+              nominee.save(function(err, updatedNominee){
+                if (err) {
+                  return done(Hapi.error.internal('save nominee', err));
+                }
+                cb();
+              });
+            }, function(err) {
+              done(null);
+            });
+          });
+      }
+    ]
+  }
+}

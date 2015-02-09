@@ -10,12 +10,17 @@ exports.register = function(plugin, options, next) {
 
     //get
     { method: 'GET', path: '/api/user/login', config: user.login },
+    { method: 'GET', path: '/api/user/profile', config: user.profile },
     { method: 'GET', path: '/api/categories', config: handlers.getCategories },
     { method: 'GET', path: '/api/setup', config: handlers.setUpCategories },
 
     //post
     { method: 'POST', path: '/api/add/film', config: handlers.addFilm },
     { method: 'POST', path: '/api/add/artist', config: handlers.addArtist },
+    { method: 'POST', path: '/api/winner', config: handlers.winner },
+    { method: 'POST', path: '/api/vote', config: handlers.vote },
+    { method: 'POST', path: '/api/favorite', config: handlers.favorite },
+    { method: 'POST', path: '/api/update/profile', config: user.update },
     //{ method: 'POST', path: '/api/add/path/{var}', config: handlers.function },
 
   ]);

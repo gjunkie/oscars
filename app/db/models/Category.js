@@ -3,6 +3,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var categorySchema = mongoose.Schema({
   name: String,
+  slug: String,
   primary: String,
   secondary: String,
   slots: Number,

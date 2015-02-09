@@ -15,11 +15,7 @@
                   <input type="text" class="" value="{{film.director.name}}" disabled>
                 {{else}}
                   <input type="text" class="" value="{{name}}">
-                  {{#each nominations}}
-                    {{#ifequal ../category ../../../name}}
-                      <input type="text" class="" value="{{../../film.title}}">
-                    {{/ifequal}}
-                  {{/each}}
+                  <input type="text" class="" value="{{../film.title}}">
                 {{/ifequal}}
               </div>
             {{/each}}

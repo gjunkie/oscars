@@ -1,0 +1,63 @@
+input {
+  display: none;
+}
+
+label:hover {
+  cursor: pointer;
+}
+
+ul {
+  width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+ul li {
+  margin-bottom: 20px;
+  padding-top: 5px;
+}
+
+.nominee {
+  margin-bottom: 5px;
+  clear: both;
+  overflow: hidden;
+}
+
+.nominee .nominee--votes,
+.nominee .nominee--favorites {
+  float: left;
+  width: 30%;
+  height: 34px;
+}
+
+.nominee .nominee--info {
+  float: left;
+  width: 40%;
+  transition-duration: .3s;
+}
+
+.nominee .nominee--info.loser {
+  opacity: .2;
+}
+
+.nominee .nominee--info.loser:hover {
+  opacity: .4;
+}
+
+.nominee .nominee--mark {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}
+
+.nominee .nominee--mark:hover {
+  cursor: default;
+}
+
+.nominee .nominee--votes .nominee--mark {
+  float: right;
+}
+
+.nominee .nominee--favorites .nominee--mark {
+  float: left;
+}
