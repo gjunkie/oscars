@@ -74,6 +74,8 @@ server.register([
     }
   });
 
+  console.log('start');
+
   server.start();
 
 });
