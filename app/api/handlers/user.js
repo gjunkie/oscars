@@ -23,11 +23,11 @@ exports.login = {
                 if (err) {
                   console.log(err);
                 }
-                done(null, request, newUser);
+                done(null, newUser);
               });
             } else {
               // TODO: should prob update the user if they exist
-              done(null, request, user);
+              done(null, user);
             }
           });
       }
