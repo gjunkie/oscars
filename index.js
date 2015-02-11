@@ -38,6 +38,7 @@ server.register([
     throw err;
   }
 
+  /*
   server.auth.strategy('google', 'bell', {
     provider: 'google',
     password: 'password',
@@ -75,8 +76,7 @@ server.register([
       }
     }
   });
-
-  console.log('start');
+  */
 
   server.start();
 
