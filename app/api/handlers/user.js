@@ -8,13 +8,11 @@ exports.login = {
         User
           .findOne({ id: request.auth.credentials.profile.raw.id })
           .exec(function(err, user){
+            console.log('running');
             if (err) {
-console.log('err');
-console.log(err);
               return done(Hapi.error.internal('find user', err));
             }
             if (!user) {
-console.log('no user');
               var userData = {
                 id: request.auth.credentials.profile.raw.id,
                 name: request.auth.credentials.profile.raw.given_name,
@@ -24,16 +22,13 @@ console.log('no user');
               }
               User.create(userData, function(err, newUser) {
                 if (err) {
-console.log('create err');
-console.log(err);
-                  console.log(err);
+                  console.log('create err');
                 }
-console.log('done');
                 done(null, newUser);
               });
             } else {
               // TODO: should prob update the user if they exist
-console.log('done 2');
+              console.log('done 2');
               done(null, user);
             }
           });

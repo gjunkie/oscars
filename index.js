@@ -67,10 +67,8 @@ server.register([
         }
       },
       handler: function (request, reply) {
-        console.log('logged in');
         request.auth.credentials.timestamp = new Date();
         request.auth.session.set(request.auth.credentials);
-        console.log(request.auth);
         request.server.plugins.api.get(request, '/api/user/login', function(response){
           return reply.redirect('/');
         });
