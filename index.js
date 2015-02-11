@@ -5,6 +5,7 @@ var server = new Hapi.Server()
 
 server.connection( { port: process.env.PORT || 8004 } )
 
+/*
 var options = {
   opsInterval: 1000,
   reporters: [{
@@ -20,6 +21,7 @@ var options = {
     }]
   }]
 };
+*/
 
 server.register([
 
