@@ -11,7 +11,7 @@ server.register([
   { register: require('hapi-auth-cookie') },
   { register: require('./app/www') },
   { register: require('./app/api') },
-  { register: require('./app/db'), options: { url: process.env.MONGO_URL || 'mongodb://localhost:27017/oscars' }}
+  { register: require('./app/db'), options: { url: process.env.MONGODB_URL || 'mongodb://localhost:27017/oscars' }}
 
 ], function(err) {
 
@@ -23,8 +23,8 @@ server.register([
     provider: 'google',
     password: 'password',
     isSecure: false,
-    clientId: '',
-    clientSecret: '',
+    clientId: process.env.googleClientId,
+    clientSecret: process.env.googleClientSecret,
     providerParams: {
       redirect_uri: server.info.uri + '/login'
     }
