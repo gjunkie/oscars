@@ -223,6 +223,12 @@ exports.getCategories = {
   handler: {
     waterfall: [
       function(request, done) {
+        var User = request.server.plugins.db.User;
+        User
+          .find()
+          .exec(function(err, users){
+            console.log(users);
+          });
         var Category = request.server.plugins.db.Category;
         Category
           .find()
@@ -547,25 +553,42 @@ exports.vote = {
       },
       // remove vote from previously voted nominees
       function(request, user, done) {
-        var Nominee = request.server.plugins.db.Nominee;
-        Nominee
-          .find()
-          .exec(function(err, nominees) {
-            async.each(nominees, function(nominee, cb) {
-              var cleanVotes = _.reject(nominee.votes, function(vote) {
-                vote.id == request.auth.credentials.profile.raw.id;
+        var Category = request.server.plugins.db.Category;
+        Category
+          .findOne({ name: request.payload.category })
+          .populate('nominees')
+          .exec(function(err, category) {
+            var votes = {
+              path: 'nominees.votes',
+              model: 'User'
+            }
+            Category.populate(category, votes, function(err, subcategory) {
+              console.log(subcategory.nominees);
+              async.each(subcategory.nominees, function(nominee, cb) {
+                var userIds = {}
+                var users = [user];
+                users.forEach(function(u){
+                  userIds[u.id] = u;
+                });
+
+                // Return all elements in A, unless in B
+                var cleanVotes = nominee.votes.filter(function(vote){
+                    return !(vote.id in userIds);
+                });
+
+                console.log(cleanVotes);
+                nominee.votes = cleanVotes;
+                nominee.save(function(err, updatedNominee){
+                  if (err) {
+                    return done(Hapi.error.internal('save nominee', err));
+                  }
+                  cb();
+                });
+              }, function(err) {
+                done(null, request, user);
               });
-              nominee.votes = cleanVotes;
-              nominee.save(function(err, updatedNominee){
-                if (err) {
-                  return done(Hapi.error.internal('save nominee', err));
-                }
-                cb();
-              });
-            }, function(err) {
-              done(null, request, user);
             });
-          })
+          });
       },
       // find selected nominee and add vote
       function(request, user, done) {
@@ -584,6 +607,7 @@ exports.vote = {
               if (err) {
                 return done(Hapi.error.internal('save nominee', err));
               }
+              console.log(updatedNominee);
               done(null, updatedNominee);
             });
           });
@@ -609,25 +633,39 @@ exports.favorite = {
       },
       // remove favorite from previously favorited nominees
       function(request, user, done) {
-        var Nominee = request.server.plugins.db.Nominee;
-        Nominee
-          .find()
-          .exec(function(err, nominees) {
-            async.each(nominees, function(nominee, cb) {
-              var cleanFavorites = _.reject(nominee.favorites, function(favorite) {
-                favorite.id == request.auth.credentials.profile.raw.id;
+        var Category = request.server.plugins.db.Category;
+        Category
+          .findOne({ name: request.payload.category })
+          .populate('nominees')
+          .exec(function(err, category) {
+            var favorites = {
+              path: 'nominees.favorites',
+              model: 'User'
+            }
+            Category.populate(category, favorites, function(err, subcategory) {
+              async.each(subcategory.nominees, function(nominee, cb) {
+                var userIds = {}
+                var users = [user];
+                users.forEach(function(u){
+                  userIds[u.id] = u;
+                });
+
+                // Return all elements in A, unless in B
+                var cleanFavorites = nominee.favorites.filter(function(favorite){
+                    return !(favorite.id in userIds);
+                });
+                nominee.favorites = cleanFavorites;
+                nominee.save(function(err, updatedNominee){
+                  if (err) {
+                    return done(Hapi.error.internal('save nominee', err));
+                  }
+                  cb();
+                });
+              }, function(err) {
+                done(null, request, user);
               });
-              nominee.favorites = cleanFavorites;
-              nominee.save(function(err, updatedNominee){
-                if (err) {
-                  return done(Hapi.error.internal('save nominee', err));
-                }
-                cb();
-              });
-            }, function(err) {
-              done(null, request, user);
             });
-          })
+          });
       },
       // find selected nominee and add favorite
       function(request, user, done) {

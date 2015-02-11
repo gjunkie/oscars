@@ -35,7 +35,7 @@ exports.login = {
   }
 };
 
-exports.profile = {
+exports.user = {
   handler: {
     waterfall: [
       // get user data

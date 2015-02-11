@@ -9,8 +9,8 @@ exports.register = function(plugin, options, next) {
   plugin.route([
 
     //get
+    { method: 'GET', path: '/api/user', config: user.user },
     { method: 'GET', path: '/api/user/login', config: user.login },
-    { method: 'GET', path: '/api/user/profile', config: user.profile },
     { method: 'GET', path: '/api/categories', config: handlers.getCategories },
     { method: 'GET', path: '/api/setup', config: handlers.setUpCategories },
 

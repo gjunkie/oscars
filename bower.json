@@ -1,0 +1,22 @@
+{
+  "name": "oscars",
+  "main": "index.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/gjunkie/oscars",
+  "authors": [
+    "Freddie Carthy <fcarthy@gmail.com>"
+  ],
+  "description": "Vote on the oscars",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "formjax": "~0.3.1",
+    "jquery": "~2.1.3"
+  }
+}

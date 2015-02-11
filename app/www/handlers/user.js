@@ -4,6 +4,12 @@ exports.vote = {
     apiView: {
       requests: [
         {
+          variable: 'user',
+          url: function(request) {
+            return '/api/user';
+          }
+        },
+        {
           variable: 'categories',
           url: function(request) {
             return '/api/categories';
@@ -22,7 +28,7 @@ exports.profile = {
         {
           variable: 'user',
           url: function(request) {
-            return '/api/user/profile';
+            return '/api/user';
           }
         }
       ],
