@@ -80,6 +80,6 @@ server.register([
   });
   */
 
-  //server.start();
+  server.start();
 
 });
