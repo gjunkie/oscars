@@ -9,7 +9,8 @@ exports.login = {
           .findOne({ id: request.auth.credentials.profile.raw.id })
           .exec(function(err, user){
             if (err) {
-              return done(Hapi.error.internal('find user', err));
+              console.log(err);
+              done(null);
             }
             if (!user) {
               var userData = {
