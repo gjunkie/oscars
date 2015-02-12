@@ -3,6 +3,7 @@
 if pgrep -q mongod; then
   echo running;
 else
+  mkdir -p db
   mongod --quiet --dbpath db/;
 fi
 
