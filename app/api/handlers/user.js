@@ -29,11 +29,11 @@ exports.login = {
               }
               done(null, newUser);
               });
-              */
           } else {
             // TODO: should prob update the user if they exist
             console.log('done 2');
             done(null, user);
+              */
           }
         });
       }
