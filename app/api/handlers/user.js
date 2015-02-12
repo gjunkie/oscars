@@ -4,6 +4,8 @@ exports.login = {
     waterfall: [
       // create user if first login
       function(request, done) {
+              done(null);
+/*
         var User = request.server.plugins.db.User;
         User
           .findOne({ id: request.auth.credentials.profile.raw.id })
@@ -33,6 +35,7 @@ exports.login = {
               done(null, user);
             }
           });
+*/
       }
     ]
   }
