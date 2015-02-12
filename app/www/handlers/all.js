@@ -3,17 +3,25 @@ exports.homepage = {
   handler: {
     apiView: {
       requests: [
+/*
         {
           variable: 'categories',
           url: function(request) {
             return '/api/categories';
+          }
+        },
+*/
+        {
+          variable: 'user',
+          url: function(request) {
+            return '/api/user';
           }
         }
       ],
       before: function(request, reply, data) {
         if (!data.categories.length) {
           console.log('we dont have cats');
-          return reply.redirect('/setup');
+          //return reply.redirect('/setup');
         }
       },
       view: 'index'
