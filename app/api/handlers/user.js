@@ -4,6 +4,7 @@ exports.login = {
     waterfall: [
       // create user if first login
       function(request, done) {
+            /*
         var User = request.server.plugins.db.User;
         User
         .findOne({ id: request.auth.credentials.profile.raw.id })
@@ -14,7 +15,6 @@ exports.login = {
           }
           if (!user) {
             done(null);
-            /*
             var userData = {
               id: request.auth.credentials.profile.raw.id,
               name: request.auth.credentials.profile.raw.given_name,
@@ -33,9 +33,10 @@ exports.login = {
             // TODO: should prob update the user if they exist
             console.log('done 2');
             done(null, user);
-              */
           }
         });
+              */
+            done(null);
       }
     ]
   }
