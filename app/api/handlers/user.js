@@ -4,11 +4,12 @@ exports.login = {
     waterfall: [
       // create user if first login
       function(request, done) {
-          done(null);
         var User = request.server.plugins.db.User;
         User
         .findOne({ id: request.auth.credentials.profile.raw.id })
         .exec(function(err, user){
+          done(null);
+            done(null);
           if (err) {
             done(null);
             //return done(Hapi.error.internal('find user', err));
