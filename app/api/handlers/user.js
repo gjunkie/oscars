@@ -4,7 +4,7 @@ exports.login = {
     waterfall: [
       // create user if first login
       function(request, done) {
-        var User = request.server.plugins.db.User;
+        var User = request.server.plugins.db;
           done(null);
             /*
         User
