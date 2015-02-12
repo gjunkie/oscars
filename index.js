@@ -27,7 +27,7 @@ var options = {
 
 server.register([
 
-//  { register: require('bell') },
+  { register: require('bell') },
   { register: require('hapi-auth-cookie') },
   { register: require('./app/www') },
   { register: require('./app/api') },
