@@ -1,6 +1,6 @@
 # this script checks if the mongod is running, starts it if not
 
-if pgrep -q mongod; then
+if pgrep -s mongod; then
   echo running;
 else
   mkdir -p db
