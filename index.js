@@ -30,8 +30,8 @@ server.register([
 //  { register: require('bell') },
 //  { register: require('hapi-auth-cookie') },
   { register: require('./app/www') },
-  { register: require('./app/api') },
-  //{ register: require('./app/db'), options: { url: process.env.MONGODB_URL || 'mongodb://localhost:27017/oscars' } },
+  //{ register: require('./app/api') },
+  { register: require('./app/db'), options: { url: process.env.MONGODB_URL || 'mongodb://localhost:27017/oscars' } },
 //  { register: require('good'), options: options },
 
 ], function(err) {
