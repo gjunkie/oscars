@@ -53,8 +53,16 @@ module.exports = function(grunt) {
       }
     },
     shell: {
+      make_dir: {
+        command: 'mkdir -p db'
+      },
+      /*
       mongodb: {
-        command: 'sh startMongoIfNotRunning.sh',
+        command: 'mongod --dbpath db/',
+      }
+      */
+      mongodb: {
+        command: './startMongoIfNotRunning.sh',
         options: {
           stdin: false,
         }
