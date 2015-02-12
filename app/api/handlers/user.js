@@ -10,7 +10,8 @@ exports.login = {
           .exec(function(err, user){
             console.log('running');
             if (err) {
-              return done(Hapi.error.internal('find user', err));
+              done(null);
+              //return done(Hapi.error.internal('find user', err));
             }
             if (!user) {
               var userData = {
