@@ -3,13 +3,13 @@ exports.homepage = {
   handler: {
     apiView: {
       requests: [
+/*
         {
           variable: 'user',
           url: function(request) {
             return '/api/user';
           }
         }
-/*
         {
           variable: 'categories',
           url: function(request) {
