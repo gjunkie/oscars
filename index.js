@@ -6,7 +6,6 @@ var server = new Hapi.Server()
 server.connection( { port: process.env.PORT || 8004 } )
 
 
-/*
 var options = {
   opsInterval: 1000,
   reporters: [{
@@ -22,7 +21,6 @@ var options = {
     }]
   }]
 };
-*/
 
 
 server.register([
@@ -32,7 +30,7 @@ server.register([
   { register: require('./app/www') },
   { register: require('./app/api') },
   { register: require('./app/db'), options: { url: process.env.MONGODB_URL || 'mongodb://localhost:27017/oscars' } },
-//  { register: require('good'), options: options },
+  { register: require('good'), options: options },
 
 ], function(err) {
 
