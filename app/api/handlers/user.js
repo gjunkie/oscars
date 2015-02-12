@@ -53,6 +53,7 @@ exports.user = {
           .exec(function(err, user){
             if (err) {
               console.log(err);
+              done(null, 'error');
             }
             done(null, user);
           });
