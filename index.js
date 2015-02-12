@@ -71,12 +71,9 @@ server.register([
       handler: function (request, reply) {
         request.auth.credentials.timestamp = new Date();
         request.auth.session.set(request.auth.credentials);
-          return reply.redirect('/');
-/*
         request.server.plugins.api.get(request, '/api/user/login', function(response){
           return reply.redirect('/');
         });
-  */
       }
     }
   });
