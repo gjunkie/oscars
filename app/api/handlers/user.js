@@ -9,8 +9,6 @@ exports.login = {
         User
         .findOne({ id: request.auth.credentials.profile.raw.id })
         .exec(function(err, user){
-          done(null);
-            done(null);
           if (err) {
             done(null);
             //return done(Hapi.error.internal('find user', err));
@@ -60,7 +58,7 @@ exports.user = {
       }
     ]
   }
-}
+};
 
 exports.update = {
   handler: {
