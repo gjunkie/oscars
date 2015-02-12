@@ -5,11 +5,11 @@ exports.login = {
       // create user if first login
       function(request, done) {
               done(null);
-/*
         var User = request.server.plugins.db.User;
         User
           .findOne({ id: request.auth.credentials.profile.raw.id })
           .exec(function(err, user){
+/*
             console.log('running');
             if (err) {
               done(null);
@@ -34,8 +34,8 @@ exports.login = {
               console.log('done 2');
               done(null, user);
             }
-          });
 */
+          });
       }
     ]
   }
