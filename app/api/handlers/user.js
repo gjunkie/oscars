@@ -9,12 +9,12 @@ exports.login = {
         User
           .findOne({ id: request.auth.credentials.profile.raw.id })
           .exec(function(err, user){
-/*
             console.log('running');
             if (err) {
               done(null);
               //return done(Hapi.error.internal('find user', err));
             }
+/*
             if (!user) {
               var userData = {
                 id: request.auth.credentials.profile.raw.id,
