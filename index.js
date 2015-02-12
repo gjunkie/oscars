@@ -40,7 +40,6 @@ server.register([
     throw err;
   }
 
-  /*
   server.auth.strategy('google', 'bell', {
     provider: 'google',
     password: 'password',
@@ -52,6 +51,7 @@ server.register([
     }
   });
 
+  /*
   server.auth.strategy('session', 'cookie', 'try', {
     password: 'cookie_encryption_password',
     cookie: 'fa-sid',
