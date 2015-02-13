@@ -3,7 +3,6 @@ exports.homepage = {
   handler: {
     apiView: {
       requests: [
-/*
         {
           variable: 'user',
           url: function(request) {
@@ -19,10 +18,9 @@ exports.homepage = {
       before: function(request, reply, data) {
         if (!data.categories.length) {
           console.log('we dont have cats');
-          //return reply.redirect('/setup');
+          return reply.redirect('/setup');
         }
       },
-*/
       ],
       view: 'index'
     }
