@@ -546,6 +546,7 @@ exports.vote = {
         User
           .findOne({ id: request.auth.credentials.profile.raw.id })
           .exec(function(err, user){
+            console.log(user);
             if (err) {
               return done(Hapi.error.internal('find user', err));
             }
@@ -564,7 +565,6 @@ exports.vote = {
               model: 'User'
             }
             Category.populate(category, votes, function(err, subcategory) {
-              console.log(subcategory.nominees);
               async.each(subcategory.nominees, function(nominee, cb) {
                 var userIds = {}
                 var users = [user];
