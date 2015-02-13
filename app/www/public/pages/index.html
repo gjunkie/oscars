@@ -1,7 +1,8 @@
 {{#extend "layout"}}
   {{#content "title"}}Add Nominees{{/content}}
   {{#content "styles"}}
-    <link href="dist/home.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="dist/common.min.css">
+    <link rel="stylesheet" href="dist/home.min.css">
   {{/content}}
   {{#content "body"}}
     <h1>Appcademy Awards</h1>
@@ -9,9 +10,7 @@
     <a href="/vote">Vote</a>
     <a href="/profile">Profile</a>
     <a href="/add">Add Nominees</a>
-{{user}}
-{{user.name}}
-
+    <h3>{{user.name}}</h3>
     <ul>
       {{#each categories}}
         <li>
@@ -21,7 +20,7 @@
               <div class="nominee">
                 <div class="nominee--votes">
                   {{#each votes}}
-                    <a title="{{name}}" style="background-color:red;" class="nominee--mark"></a>
+                    <a title="{{name}}" style="background-color:{{color}};" class="nominee--mark"></a>
                   {{/each}}
                 </div>
                 <div class="nominee--info">
@@ -43,7 +42,7 @@
                 </div>
                 <div class="nominee--favorites">
                   {{#each favorites}}
-                    <a title="{{name}}" style="background-color:red;" class="nominee--mark"></a>
+                  <a title="{{name}}" style="background-color:{{color}};" class="nominee--mark"></a>
                   {{/each}}
                 </div>
               </div>

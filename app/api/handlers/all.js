@@ -223,12 +223,6 @@ exports.getCategories = {
   handler: {
     waterfall: [
       function(request, done) {
-        var User = request.server.plugins.db.User;
-        User
-          .find()
-          .exec(function(err, users){
-            console.log(users);
-          });
         var Category = request.server.plugins.db.Category;
         Category
           .find()
@@ -545,7 +539,6 @@ exports.vote = {
         User
           .findOne({ id: request.auth.credentials.profile.raw.id })
           .exec(function(err, user){
-            console.log(user);
             if (err) {
               return done(Hapi.error.internal('find user', err));
             }
@@ -576,7 +569,6 @@ exports.vote = {
                     return !(vote.id in userIds);
                 });
 
-                console.log(cleanVotes);
                 nominee.votes = cleanVotes;
                 nominee.save(function(err, updatedNominee){
                   if (err) {
@@ -607,7 +599,6 @@ exports.vote = {
               if (err) {
                 return done(Hapi.error.internal('save nominee', err));
               }
-              console.log(updatedNominee);
               done(null, updatedNominee);
             });
           });

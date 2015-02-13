@@ -20,7 +20,7 @@ module.exports = function(grunt) {
             'app/www/public/scripts/home.js',
           ],
           'dist/profile.min.js': [
-            'app/www/public/scripts/plugins/spectrum.js',
+            'bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js',
             'app/www/public/scripts/profile.js'
           ],
           'dist/add.min.js': [
