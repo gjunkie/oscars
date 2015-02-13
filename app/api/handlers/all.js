@@ -234,7 +234,6 @@ exports.getCategories = {
           .find()
           .populate('nominees')
           .exec(function(err, categories){
-            console.log(categories);
             if (err) {
               return done(Hapi.error.internal('find categories', err));
             }

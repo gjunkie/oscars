@@ -8,14 +8,11 @@ exports.login = {
         User
         .findOne({ id: request.auth.credentials.profile.raw.id })
         .exec(function(err, user){
-          done(null);
-            done(null);
           if (err) {
             done(null);
             //return done(Hapi.error.internal('find user', err));
           }
           if (!user) {
-            done(null);
             var userData = {
               id: request.auth.credentials.profile.raw.id,
               name: request.auth.credentials.profile.raw.given_name,
@@ -23,7 +20,6 @@ exports.login = {
               correct: 0,
               color: null
             }
-            done(null);
             User.create(userData, function(err, newUser) {
               if (err) {
                 console.log('create err');
