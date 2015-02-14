@@ -17,6 +17,12 @@ ul li {
   padding-top: 5px;
 }
 
+.headings h3 {
+  float: left;
+  width: 50%;
+  text-align: center;
+}
+
 .nominee {
   margin-bottom: 5px;
   clear: both;
@@ -45,6 +51,7 @@ ul li {
 }
 
 .nominee .nominee--mark {
+  margin: 0 5px;
   width: 20px;
   height: 20px;
   border-radius: 10px;

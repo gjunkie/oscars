@@ -7,51 +7,59 @@
   {{#content "body"}}
     <h1>Appcademy Awards</h1>
     <a href="/login">Login</a>
-    <a href="/vote">Vote</a>
-    <a href="/profile">Profile</a>
-    <a href="/add">Add Nominees</a>
+    {{#if user}}
+      <a href="/vote">Vote</a>
+      <a href="/profile">Profile</a>
+      <a href="/add">Add Nominees</a>
+    {{/if}}
     <h3>{{user.name}}</h3>
-    <ul>
-      {{#each categories}}
-        <li>
-          <h2>{{name}}</h2>
-          <form action="/api/winner" method="POST">
-            {{#each nominees}}
-              <div class="nominee">
-                <div class="nominee--votes">
-                  {{#each votes}}
+    <div class="container">
+      <div class="headings">
+        <h3>The Votes</h3>
+        <h3>The Favorites</h3>
+      </div>
+      <ul>
+        {{#each categories}}
+          <li>
+            <h2>{{name}}</h2>
+            <form action="/api/winner" method="POST">
+              {{#each nominees}}
+                <div class="nominee">
+                  <div class="nominee--votes">
+                    {{#each votes}}
+                      <a title="{{name}}" style="background-color:{{color}};" class="nominee--mark"></a>
+                    {{/each}}
+                  </div>
+                  <div class="nominee--info">
+                    <fieldset>
+                      {{#ifequal type 'film'}}
+                        <label for="{{slug}}">
+                          <h4>{{film.title}}</h4>
+                          <h5>{{film.director.name}}</h5>
+                        </label>
+                        <input type="radio" name="name" id="{{slug}}" value="{{film.title}}">
+                      {{else}}
+                        <label for="{{slug}}">
+                          <h4>{{name}}</h4>
+                          <h5>{{film.title}}</h5>
+                        </label>
+                        <input type="radio" name="name" id="{{slug}}" value="{{name}}">
+                      {{/ifequal}}
+                    </fieldset>
+                  </div>
+                  <div class="nominee--favorites">
+                    {{#each favorites}}
                     <a title="{{name}}" style="background-color:{{color}};" class="nominee--mark"></a>
-                  {{/each}}
+                    {{/each}}
+                  </div>
                 </div>
-                <div class="nominee--info">
-                  <fieldset>
-                    {{#ifequal type 'film'}}
-                      <label for="{{slug}}">
-                        <h4>{{film.title}}</h4>
-                        <h5>{{film.director.name}}</h5>
-                      </label>
-                      <input type="radio" name="name" id="{{slug}}" value="{{film.title}}">
-                    {{else}}
-                      <label for="{{slug}}">
-                        <h4>{{name}}</h4>
-                        <h5>{{film.title}}</h5>
-                      </label>
-                      <input type="radio" name="name" id="{{slug}}" value="{{name}}">
-                    {{/ifequal}}
-                  </fieldset>
-                </div>
-                <div class="nominee--favorites">
-                  {{#each favorites}}
-                  <a title="{{name}}" style="background-color:{{color}};" class="nominee--mark"></a>
-                  {{/each}}
-                </div>
-              </div>
-            {{/each}}
-            <input type="hidden" name="category" value="{{name}}">
-          </form>
-        </li>
-      {{/each}}
-    </ul>
+              {{/each}}
+              <input type="hidden" name="category" value="{{name}}">
+            </form>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
   {{/content}}
   {{#content "scripts"}}
     <script src="/dist/home.min.js"></script>

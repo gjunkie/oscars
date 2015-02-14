@@ -44,8 +44,8 @@ server.register([
     provider: 'google',
     password: 'password',
     isSecure: false,
-    clientId: process.env.googleClientId,
-    clientSecret: process.env.googleClientSecret,
+    clientId: '736606762922-6baidr5ue80qt557t2ea74ilcfe2ufag.apps.googleusercontent.com',
+    clientSecret: 'J6WQc1EooqahzDsuzHPlk_L5',
     providerParams: {
       redirect_uri: server.info.uri + '/login'
     }

@@ -25,11 +25,13 @@
                 <div class="heading">Winner</div>
                 <fieldset>
                 {{#each nominees}}
-                  {{#ifequal type 'film'}}
-                   <input type="radio" name="name" id="{{slug}}" value="{{film.title}}"{{#inArray votes ../../../user}} checked{{/inArray}}>
-                  {{else}}
-                    <input type="radio" name="name" id="{{slug}}" value="{{name}}"{{#inArray votes ../../../user}} checked{{/inArray}}>
-                  {{/ifequal}}
+                  <div>
+                    {{#ifequal type 'film'}}
+                     <input type="radio" name="name" id="{{slug}}" value="{{film.title}}"{{#inArray votes ../../../user}} checked{{/inArray}}>
+                    {{else}}
+                      <input type="radio" name="name" id="{{slug}}" value="{{name}}"{{#inArray votes ../../../user}} checked{{/inArray}}>
+                    {{/ifequal}}
+                  </div>
                 {{/each}}
                 <input type="hidden" name="category" value="{{name}}">
                 </fieldset>
@@ -38,11 +40,13 @@
                 <div class="heading">Favorite</div>
                 <fieldset>
                 {{#each nominees}}
-                  {{#ifequal type 'film'}}
-                    <input type="radio" name="name" id="{{slug}}" value="{{film.title}}"{{#inArray favorites ../../../user}} checked{{/inArray}}>
-                  {{else}}
-                    <input type="radio" name="name" id="{{slug}}" value="{{name}}"{{#inArray favorites ../../../user}} checked{{/inArray}}>
-                  {{/ifequal}}
+                  <div>
+                    {{#ifequal type 'film'}}
+                      <input type="radio" name="name" id="{{slug}}" value="{{film.title}}"{{#inArray favorites ../../../user}} checked{{/inArray}}>
+                    {{else}}
+                      <input type="radio" name="name" id="{{slug}}" value="{{name}}"{{#inArray favorites ../../../user}} checked{{/inArray}}>
+                    {{/ifequal}}
+                  </div>
                 {{/each}}
                 <input type="hidden" name="category" value="{{name}}">
                 </fieldset>
