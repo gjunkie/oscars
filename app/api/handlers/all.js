@@ -756,6 +756,11 @@ exports.winner = {
               _.map(nominee.votes, function(user){
                 if (nominee.winner) {
                   user.correct++;
+                  user.save(function(err, updatedUser){
+                    if (err) {
+                      return done(Hapi.error.internal('save user', err));
+                    }
+                  });
                 }
               });
               nominee.save(function(err, updatedNominee){

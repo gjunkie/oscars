@@ -1,3 +1,4 @@
+var async = require('async');
 
 exports.login = {
   handler: {
@@ -76,6 +77,36 @@ exports.update = {
                 return done(Hapi.error.internal('update user', err));
               }
               done(null, user);
+            });
+          });
+      }
+    ]
+  }
+}
+
+exports.tallies = {
+  handler: {
+    waterfall: [
+      // get user data
+      function(request, done) {
+        var User = request.server.plugins.db.User;
+        User
+          .find()
+          .exec(function(err, users){
+            console.log(users);
+            if (err) {
+              console.log(err);
+            }
+            var userTallies = [];
+            async.each(users, function(user, cb){
+              var userData = {
+                name: user.name,
+                tally: user.correct
+              };
+              userTallies.push(userData);
+              cb();
+            }, function(){
+              done(null, userTallies);
             });
           });
       }
