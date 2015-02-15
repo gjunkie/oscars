@@ -36,3 +36,17 @@ exports.profile = {
     }
   }
 };
+
+exports.logout = {
+  handler: {
+    apiView: {
+      requests: [
+      ],
+      before: function(request, reply, data) {
+        request.auth.session.clear();
+        return reply.redirect('/');
+      },
+      view: ''
+    }
+  }
+};

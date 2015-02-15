@@ -32,6 +32,7 @@ exports.register = function(plugin, options, next) {
     // user pages
     { method: 'GET', path: '/vote', config: user.vote },
     { method: 'GET', path: '/profile', config: user.profile },
+    { method: 'GET', path: '/logout', config: user.logout },
   ]);
 
   next();

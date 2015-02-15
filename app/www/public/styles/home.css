@@ -28,7 +28,7 @@ ul li {
 .nominee {
   margin-bottom: 5px;
   clear: both;
-  overflow: hidden;
+  min-height: 35px;
 }
 
 .nominee .nominee--votes,
@@ -53,6 +53,7 @@ ul li {
 }
 
 .user-mark {
+  position: relative;
   margin: 0 5px;
   width: 20px;
   height: 20px;
@@ -61,6 +62,20 @@ ul li {
 
 .user-mark:hover {
   cursor: default;
+}
+
+.user-mark span {
+  display: none;
+  position: absolute;
+  top: -25px;
+  padding: 4px 9px;
+  border-radius: 3px;
+  background: rgb(219, 219, 219);
+  font-size: 13px;
+}
+
+.user-mark:hover span {
+  display: block;
 }
 
 .nominee .nominee--votes .user-mark {
