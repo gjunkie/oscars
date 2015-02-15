@@ -7,7 +7,7 @@ $(document).ready(function() {
   }).on('change', function() {
     var newColor = $('select[name="colorpicker"]').val()
     $('#color').val(newColor);
-    $('h3').css('border-color', newColor);
+    $('.user-name').css('border-color', newColor);
   });;
   var color = $('#color').val();
   $('select[name="colorpicker"]').simplecolorpicker('selectColor', color);
