@@ -59,15 +59,15 @@ ul li {
   border-radius: 10px;
 }
 
-.nominee .nominee--mark:hover {
+.user-mark:hover {
   cursor: default;
 }
 
-.nominee .nominee--votes .nominee--mark {
+.nominee .nominee--votes .user-mark {
   float: right;
 }
 
-.nominee .nominee--favorites .nominee--mark {
+.nominee .nominee--favorites .user-mark {
   float: left;
 }
 
