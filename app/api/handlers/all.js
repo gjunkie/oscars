@@ -739,7 +739,12 @@ exports.winner = {
           .exec(function(err, users){
             async.each(users, function(user, cb) {
               user.correct = 0;
-              cb();
+              user.save(function(err, updatedUser){
+                if (err) {
+                  return done(Hapi.error.internal('save user', err));
+                }
+                cb();
+              });
             }, function(err) {
               done(null, request);
             });
@@ -756,6 +761,8 @@ exports.winner = {
               _.map(nominee.votes, function(user){
                 if (nominee.winner) {
                   user.correct++;
+                  // this will save the user for every correct vote...
+                  // should first count total correct, then set value and save
                   user.save(function(err, updatedUser){
                     if (err) {
                       return done(Hapi.error.internal('save user', err));
