@@ -703,6 +703,7 @@ exports.winner = {
       function(request, category, done) {
         async.each(category.nominees, function(nominee, cb) {
           nominee.winner = false;
+          nominee.marked = true;
           nominee.save(function(err, updatedNominee){
             if (err) {
               return done(Hapi.error.internal('save nominee', err));

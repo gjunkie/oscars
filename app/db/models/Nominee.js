@@ -7,6 +7,7 @@ var nomineeSchema = mongoose.Schema({
   category: String,
   type: String,
   winner: { type: Boolean, default: false },
+  marked: false,
   artist: {
     type: ObjectId,
     ref: 'Artist'

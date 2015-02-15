@@ -30,7 +30,7 @@
                       <a title="{{name}}" style="background-color:{{color}};" class="nominee--mark"></a>
                     {{/each}}
                   </div>
-                  <div class="nominee--info">
+                  <div class="nominee--info{{#ifequal marked true}}{{#if winner}} winner{{else}} loser{{/if}}{{/ifequal}}">
                     <fieldset>
                       {{#ifequal type 'film'}}
                         <label for="{{slug}}">
