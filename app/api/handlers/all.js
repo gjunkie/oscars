@@ -50,7 +50,7 @@ exports.setUpCategories = {
             name: 'Animated Feature Film',
             slug: 'animated-feature-film',
             slots: 5,
-            primary: 'Animated Film',
+            primary: 'Film',
             secondary: 'Director'
           },
           {
@@ -506,6 +506,7 @@ exports.addArtist = {
           slug: artist.name.split(' ').join('-').toLowerCase(),
           category: category.name,
           type: 'artist',
+          artist: artist,
           film: film
         }
         Nominee.create(nomineeData, function(err, newNominee) {
@@ -778,6 +779,128 @@ exports.winner = {
                 cb();
               });
             }, function(err) {
+              done(null);
+            });
+          });
+      }
+    ]
+  }
+}
+
+exports.editFilm = {
+  handler: {
+    waterfall: [
+      // update nominee
+      function(request, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        Nominee
+          .findOne({
+            _id: request.payload._nomId
+          })
+          .exec(function(err, nominee) {
+            nominee.title = request.payload.title;
+            nominee.slug = request.payload.title.split(' ').join('-').toLowerCase();
+            nominee.save(function(err, updatedNominee){
+              if (err) {
+                return done(Hapi.error.internal('save nominee', err));
+              }
+              done(null, request);
+            });
+          })
+      },
+      //update film
+      function(request, done) {
+        var Film = request.server.plugins.db.Film;
+        Film
+          .findOne({
+            _id: request.payload._id
+          })
+          .exec(function(err, film) {
+            film.title = request.payload.title;
+            film.slug = request.payload.title.split(' ').join('-').toLowerCase();
+            film.save(function(err, updatedFilm) {
+              if (err) {
+                return done(Hapi.error.internal('save film', err));
+              }
+              done(null, request);
+            });
+          });
+      },
+      //update director
+      function(request, done) {
+        var Artist = request.server.plugins.db.Artist;
+        Artist
+          .findOne({
+            _id: request.payload._artistId
+          })
+          .exec(function(err, artist) {
+            artist.name = request.payload.director;
+            artist.slug = request.payload.director.split(' ').join('-').toLowerCase();
+            artist.save(function(err, updatedArtist){
+              if (err) {
+                return done(Hapi.error.internal('save artist', err));
+              }
+              done(null);
+            });
+          });
+      }
+    ]
+  }
+}
+
+exports.editArtist= {
+  handler: {
+    waterfall: [
+      // update nominee
+      function(request, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        Nominee
+          .findOne({
+            _id: request.payload._nomId
+          })
+          .exec(function(err, nominee) {
+            nominee.name = request.payload.name;
+            nominee.slug = request.payload.name.split(' ').join('-').toLowerCase();
+            nominee.save(function(err, updatedNominee){
+              if (err) {
+                return done(Hapi.error.internal('save nominee', err));
+              }
+              done(null, request);
+            });
+          })
+      },
+      //update artist
+      function(request, done) {
+        var Artist = request.server.plugins.db.Artist;
+        Artist
+          .findOne({
+            _id: request.payload._id
+          })
+          .exec(function(err, artist) {
+            artist.name = request.payload.name;
+            artist.slug = request.payload.name.split(' ').join('-').toLowerCase();
+            artist.save(function(err, updatedArtist) {
+              if (err) {
+                return done(Hapi.error.internal('save artist', err));
+              }
+              done(null, request);
+            });
+          });
+      },
+      //update film
+      function(request, done) {
+        var Film = request.server.plugins.db.Film;
+        Film
+          .findOne({
+            _id: request.payload._filmId
+          })
+          .exec(function(err, film) {
+            film.title = request.payload.title;
+            film.slug = request.payload.title.split(' ').join('-').toLowerCase();
+            film.save(function(err, updatedFilm){
+              if (err) {
+                return done(Hapi.error.internal('save film', err));
+              }
               done(null);
             });
           });

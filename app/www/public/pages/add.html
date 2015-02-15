@@ -16,11 +16,23 @@
             {{#each nominees}}
               <div>
                 {{#ifequal type 'film'}}
-                  <input type="text" class="" value="{{film.title}}" disabled>
-                  <input type="text" class="" value="{{film.director.name}}" disabled>
+                  <form action="/api/edit/film" method="POST">
+                    <input type="text" name="title" class="" value="{{name}}">
+                    <input type="text" name="director" class="" value="{{film.director.name}}">
+                    <input type="hidden" name="_nomId" value="{{_id}}">
+                    <input type="hidden" name="_id" value="{{film._id}}">
+                    <input type="hidden" name="_artistId" value="{{film.director._id}}">
+                    <input type="submit" value="Update">
+                  </form>
                 {{else}}
-                  <input type="text" class="" value="{{name}}">
-                  <input type="text" class="" value="{{../film.title}}">
+                  <form action="/api/edit/artist" method="POST">
+                    <input type="text" name="name" class="" value="{{name}}">
+                    <input type="text" name="title" class="" value="{{film.title}}">
+                    <input type="hidden" name="_nomId" value="{{_id}}">
+                    <input type="hidden" name="_id" value="{{artist._id}}">
+                    <input type="hidden" name="_filmId" value="{{film._id}}">
+                    <input type="submit" value="Update">
+                  </form>
                 {{/ifequal}}
               </div>
             {{/each}}

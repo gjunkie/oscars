@@ -22,10 +22,6 @@ var filmSchema = mongoose.Schema({
     type: ObjectId,
     ref: 'Artist'
   }],
-  editors: [{
-    type: ObjectId,
-    ref: 'Artist'
-  }],
 });
 
 module.exports = mongoose.model('Film', filmSchema);
