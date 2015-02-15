@@ -5,26 +5,6 @@ var server = new Hapi.Server()
 
 server.connection( { port: process.env.PORT || 8004 } )
 
-
-/*
-var options = {
-  opsInterval: 1000,
-  reporters: [{
-    reporter: require('good-mongodb'),
-    args: [process.env.MONGODB_URL || 'mongodb://localhost:27017/oscars', {
-      collection: 'logs',
-      events: {
-        ops: '*',
-        request: '*',
-        log: '*',
-        error: '*'
-      }
-    }]
-  }]
-};
-*/
-
-
 server.register([
 
   { register: require('bell') },
@@ -32,7 +12,6 @@ server.register([
   { register: require('./app/www') },
   { register: require('./app/api') },
   { register: require('./app/db'), options: { url: process.env.MONGODB_URL || 'mongodb://localhost:27017/oscars' } },
-//  { register: require('good'), options: options },
 
 ], function(err) {
 
@@ -54,8 +33,13 @@ server.register([
   server.auth.strategy('session', 'cookie', 'try', {
     password: 'cookie_encryption_password',
     cookie: 'fa-sid',
+    isSecure: false,
     redirectTo: '/login',
-    isSecure: false
+    //plugins: {
+      //'hapi-auth-cookie': {
+        //redirectTo: false
+      //}
+    //}
   });
 
   server.route({

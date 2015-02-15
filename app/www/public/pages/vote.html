@@ -1,8 +1,8 @@
 {{#extend "layout"}}
-  {{#content "title"}}Add Nominees{{/content}}
-    <script src="/dist/common.min.js"></script>
+  {{#content "title"}}Vote{{/content}}
 
   {{#content "styles"}}
+    <link rel="stylesheet" href="dist/common.min.css">
     <link href="dist/vote.min.css" rel="stylesheet" type="text/css">
   {{/content}}
 
@@ -15,63 +15,65 @@
     <h1>Appcademy Awards</h1>
     <h3>{{user.name}}</h3>
 
-    <div class="vote">
-      <ul>
-        {{#each categories}}
-          <li class="vote-category">
-            <h3>{{name}}</h3>
-            <div class="vote-forms">
-              <form action="/api/vote" method="POST">
-                <div class="heading">Winner</div>
-                <fieldset>
+    <div class="container">
+      <p>Select the nominees you think will win this year as well as your favorites. Simply selecting them will save your choices. Feel free to come back to this page and update your votes before the show starts.</p>
+      <div class="vote">
+        <ul>
+          {{#each categories}}
+            <li class="vote-category">
+              <h3>{{name}}</h3>
+              <div class="vote-forms">
+                <form action="/api/vote" method="POST">
+                  <div class="heading">Winner</div>
+                  <fieldset>
+                  {{#each nominees}}
+                    <div>
+                      {{#ifequal type 'film'}}
+                       <input type="radio" name="name" id="{{slug}}" value="{{film.title}}"{{#inArray votes ../../../user}} checked{{/inArray}}>
+                      {{else}}
+                        <input type="radio" name="name" id="{{slug}}" value="{{name}}"{{#inArray votes ../../../user}} checked{{/inArray}}>
+                      {{/ifequal}}
+                    </div>
+                  {{/each}}
+                  <input type="hidden" name="category" value="{{name}}">
+                  </fieldset>
+                </form>
+                <form action="/api/favorite" method="POST">
+                  <div class="heading">Favorite</div>
+                  <fieldset>
+                  {{#each nominees}}
+                    <div>
+                      {{#ifequal type 'film'}}
+                        <input type="radio" name="name" id="{{slug}}" value="{{film.title}}"{{#inArray favorites ../../../user}} checked{{/inArray}}>
+                      {{else}}
+                        <input type="radio" name="name" id="{{slug}}" value="{{name}}"{{#inArray favorites ../../../user}} checked{{/inArray}}>
+                      {{/ifequal}}
+                    </div>
+                  {{/each}}
+                  <input type="hidden" name="category" value="{{name}}">
+                  </fieldset>
+                </form>
+              </div>
+              <div class="vote--nominees">
                 {{#each nominees}}
-                  <div>
-                    {{#ifequal type 'film'}}
-                     <input type="radio" name="name" id="{{slug}}" value="{{film.title}}"{{#inArray votes ../../../user}} checked{{/inArray}}>
-                    {{else}}
-                      <input type="radio" name="name" id="{{slug}}" value="{{name}}"{{#inArray votes ../../../user}} checked{{/inArray}}>
-                    {{/ifequal}}
-                  </div>
+                  {{#ifequal type 'film'}}
+                    <div class="vote--nominee">
+                      <div class="vote--nominee-primary">{{film.title}}</div>
+                      <div class="vote--nominee-secondary">{{film.director.name}}</div>
+                    </div>
+                  {{else}}
+                    <div class="vote--nominee">
+                      <div class="vote--nominee-primary">{{name}}</div>
+                      <div class="vote--nominee-secondary">{{film.title}}</div>
+                    </div>
+                  {{/ifequal}}
                 {{/each}}
-                <input type="hidden" name="category" value="{{name}}">
-                </fieldset>
-              </form>
-              <form action="/api/favorite" method="POST">
-                <div class="heading">Favorite</div>
-                <fieldset>
-                {{#each nominees}}
-                  <div>
-                    {{#ifequal type 'film'}}
-                      <input type="radio" name="name" id="{{slug}}" value="{{film.title}}"{{#inArray favorites ../../../user}} checked{{/inArray}}>
-                    {{else}}
-                      <input type="radio" name="name" id="{{slug}}" value="{{name}}"{{#inArray favorites ../../../user}} checked{{/inArray}}>
-                    {{/ifequal}}
-                  </div>
-                {{/each}}
-                <input type="hidden" name="category" value="{{name}}">
-                </fieldset>
-              </form>
-            </div>
-            <div class="vote--nominees">
-              {{#each nominees}}
-                {{#ifequal type 'film'}}
-                  <div class="vote--nominee">
-                    <div class="vote--nominee-primary">{{film.title}}</div>
-                    <div class="vote--nominee-secondary">{{film.director.name}}</div>
-                  </div>
-                {{else}}
-                  <div class="vote--nominee">
-                    <div class="vote--nominee-primary">{{name}}</div>
-                    <div class="vote--nominee-secondary">{{film.title}}</div>
-                  </div>
-                {{/ifequal}}
-              {{/each}}
-            </div>
-          </li>
-        {{/each}}
-      </ul>
+              </div>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
     </div>
-
   {{/content}}
 
   {{#content "scripts"}}

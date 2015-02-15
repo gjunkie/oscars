@@ -1,5 +1,8 @@
 {{#extend "layout"}}
   {{#content "title"}}Add Nominees{{/content}}
+  {{#content "styles"}}
+    <link rel="stylesheet" href="dist/common.min.css">
+  {{/content}}
   {{#content "body"}}
     <a href="/">Home</a>
     <a href="/login">Login</a>
@@ -8,7 +11,7 @@
     <a href="/add">Add Nominees</a>
     <h1>Appcademy Awards</h1>
     <h3>{{user.name}}</h3>
-    <div class="frame">
+    <div class="container">
       {{#each categories}}
         <div class="frame--category">
           <h4>{{name}}</h4>
