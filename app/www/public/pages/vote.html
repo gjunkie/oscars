@@ -2,20 +2,36 @@
   {{#content "title"}}Vote{{/content}}
 
   {{#content "styles"}}
-    <link rel="stylesheet" href="dist/common.min.css">
-    <link href="dist/vote.min.css" rel="stylesheet" type="text/css">
+    <link href="dist/styles/common.min.css" rel="stylesheet">
+    <link href="dist/styles/vote.min.css" rel="stylesheet">
   {{/content}}
-
+  {{#content "nav"}}
+    <div class="nav">
+      <ul>
+        {{#if user}}
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/profile">Profile</a>
+          </li>
+          <li>
+            <a href="/add">Add Nominees</a>
+          </li>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+        {{else}}
+          <li>
+            <a href="/login">Login</a>
+          </li>
+        {{/if}}
+      </ul>
+    </div>
+  {{/content}}
   {{#content "body"}}
-    <a href="/">Home</a>
-    <a href="/login">Login</a>
-    <a href="/vote">Vote</a>
-    <a href="/profile">Profile</a>
-    <a href="/add">Add Nominees</a>
-    <h1>Appcademy Awards</h1>
-    <h3>{{user.name}}</h3>
-
     <div class="container">
+      <h2>Make Your Selections</h2>
       <p>Select the nominees you think will win this year as well as your favorites. Simply selecting them will save your choices. Feel free to come back to this page and update your votes before the show starts.</p>
       <div class="vote">
         <ul>
@@ -77,6 +93,6 @@
   {{/content}}
 
   {{#content "scripts"}}
-    <script src="/dist/vote.min.js"></script>
+    <script src="/dist/scripts/vote.min.js"></script>
   {{/content}}
 {{/extend}}

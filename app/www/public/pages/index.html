@@ -1,30 +1,44 @@
 {{#extend "layout"}}
   {{#content "title"}}Appcademy Awards{{/content}}
   {{#content "styles"}}
-    <link rel="stylesheet" href="dist/common.min.css">
-    <link rel="stylesheet" href="dist/home.min.css">
+    <link rel="stylesheet" href="dist/styles/common.min.css">
+    <link rel="stylesheet" href="dist/styles/home.min.css">
+  {{/content}}
+  {{#content "nav"}}
+    <div class="nav">
+      <ul>
+        {{#if user}}
+          <li>
+            <a href="/vote">Vote</a>
+          </li>
+          <li>
+            <a href="/add">Add Nominees</a>
+          </li>
+          <li>
+            <a href="/profile">Profile</a>
+          </li>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+        {{else}}
+          <li>
+            <a href="/login">Login</a>
+          </li>
+        {{/if}}
+      </ul>
+    </div>
   {{/content}}
   {{#content "body"}}
-    <h1>Appcademy Awards</h1>
-    {{#if user}}
-      <a href="/vote">Vote</a>
-      <a href="/profile">Profile</a>
-      <a href="/add">Add Nominees</a>
-      <a href="/logout">Logout</a>
-    {{else}}
-      <a href="/login">Login</a>
-    {{/if}}
-    <h3>{{user.name}}</h3>
     <div class="container">
-      <div class="headings">
-        <h3>The Votes</h3>
-        <h3>The Favorites</h3>
-      </div>
-      <ul>
+      <ul class="categories">
         {{#each categories}}
-          <li>
+          <li class="categories--category">
             <h2>{{name}}</h2>
             <form action="/api/winner" method="POST" id="{{slug}}">
+              <div class="headings">
+                <h5>The Votes</h5>
+                <h5>The Favorites</h5>
+              </div>
               {{#each nominees}}
                 <div class="nominee">
                   <div class="nominee--votes">
@@ -63,9 +77,12 @@
       </ul>
     </div>
     <div class="tallies">
+      <h3>Tallies</h3>
+      <ul>
+      </ul>
     </div>
   {{/content}}
   {{#content "scripts"}}
-    <script src="/dist/home.min.js"></script>
+    <script src="/dist/scripts/home.min.js"></script>
   {{/content}}
 {{/extend}}

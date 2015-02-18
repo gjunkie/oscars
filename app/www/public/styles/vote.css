@@ -1,3 +1,12 @@
+h2 {
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border-top: 1px solid #9E9E9E;
+  border-bottom: 1px solid #9E9E9E;
+  text-align: center;
+  color: #9E9E9E;
+}
+
 .vote {
   width: 800px;
   margin: 0 auto;
@@ -5,9 +14,8 @@
 }
 
 .vote .vote-category {
-  float: left;
-  width: 380px;
-  margin: 0 10px;
+  background: #faf8ee;
+  overflow: hidden;
 }
 
 .vote form {
@@ -27,8 +35,15 @@
 }
 
 .vote h3 {
-  width: 100%;
-  border-bottom: 1px solid #232323;
+  margin-bottom: 15px;
+  padding: 15px 45px;
+  background-color: #ab922e;
+  background-image: url('/dist/images/oscar.png');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: 8px 7px;
+  color: #fff;
+  clear: both;
 }
 
 .vote .vote--nominees,
@@ -41,12 +56,12 @@
 }
 
 .vote .heading {
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .vote .vote--nominees {
   width: 75%;
-  padding-top: 17px;
+  padding-top: 23px;
 }
 
 .vote .vote--nominee {
@@ -55,4 +70,5 @@
 
 .vote .vote--nominee-secondary {
   font-size: 12px;
+  color: #B2B2B2;
 }

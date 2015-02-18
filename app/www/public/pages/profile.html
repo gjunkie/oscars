@@ -2,18 +2,29 @@
 {{#extend "layout"}}
   {{#content "title"}}Profile{{/content}}
   {{#content "styles"}}
-    <link rel="stylesheet" href="dist/common.min.css">
-    <link rel="stylesheet" href="dist/profile.min.css">
-    <link rel="stylesheet" href="dist/simplecolorpicker.min.css">
+    <link rel="stylesheet" href="dist/styles/common.min.css">
+    <link rel="stylesheet" href="dist/styles/profile.min.css">
+    <link rel="stylesheet" href="dist/styles/simplecolorpicker.min.css">
   {{/content}}
-  
+  {{#content "nav"}}
+    <div class="nav">
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/vote">Vote</a>
+        </li>
+        <li>
+          <a href="/add">Add Nominees</a>
+        </li>
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  {{/content}}
   {{#content "body"}}
-    <h1>Appcademy Awards</h1>
-    <a href="/">Home</a>
-    <a href="/login">Login</a>
-    <a href="/vote">Vote</a>
-    <a href="/profile">Profile</a>
-    <a href="/add">Add Nominees</a>
 
     <div class="container">
       <h2 class="user-name" style="border-bottom: 5px solid {{user.color}}">{{user.name}}</h2>
@@ -46,6 +57,6 @@
   {{/content}}
 
   {{#content "scripts"}}
-    <script src="/dist/profile.min.js"></script>
+    <script src="/dist/scripts/profile.min.js"></script>
   {{/content}}
 {{/extend}}

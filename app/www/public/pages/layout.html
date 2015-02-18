@@ -4,8 +4,8 @@
     <title>{{#block "title"}}{{/block}} | Oscar Party</title>
   </head>
 
-  <link href="dist/reset.min.css" rel="stylesheet" type="text/css">
-  <link href="dist/typography.min.css" rel="stylesheet" type="text/css">
+  <link href="dist/styles/reset.min.css" rel="stylesheet">
+  <link href="dist/styles/typography.min.css" rel="stylesheet">
 
   {{#block "styles"}}
 
@@ -14,7 +14,12 @@
   <body>
     <!-- common header here -->
     {{#block "header"}}
+      <div class="header">
+        <h1>And the <span>Oscar</span> goes to...</h1>
+      </div>
+    {{/block}}
 
+    {{#block "nav"}}
     {{/block}}
 
     <!-- common body here -->

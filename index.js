@@ -33,13 +33,8 @@ server.register([
   server.auth.strategy('session', 'cookie', 'try', {
     password: 'cookie_encryption_password',
     cookie: 'fa-sid',
-    isSecure: false,
     redirectTo: '/login',
-    //plugins: {
-      //'hapi-auth-cookie': {
-        //redirectTo: false
-      //}
-    //}
+    isSecure: false
   });
 
   server.route({

@@ -101,7 +101,8 @@ exports.tallies = {
             async.each(users, function(user, cb){
               var userData = {
                 name: user.name,
-                tally: user.correct
+                tally: user.correct,
+                color: user.color
               };
               userTallies.push(userData);
               cb();

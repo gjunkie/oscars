@@ -1,16 +1,30 @@
 {{#extend "layout"}}
   {{#content "title"}}Add Nominees{{/content}}
   {{#content "styles"}}
-    <link rel="stylesheet" href="dist/common.min.css">
+    <link rel="stylesheet" href="dist/styles/common.min.css">
+  {{/content}}
+  {{#content "nav"}}
+    <div class="nav">
+      <ul>
+        {{#if user}}
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/profile">Profile</a>
+          </li>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+        {{else}}
+          <li>
+            <a href="/login">Login</a>
+          </li>
+        {{/if}}
+      </ul>
+    </div>
   {{/content}}
   {{#content "body"}}
-    <a href="/">Home</a>
-    <a href="/login">Login</a>
-    <a href="/vote">Vote</a>
-    <a href="/profile">Profile</a>
-    <a href="/add">Add Nominees</a>
-    <h1>Appcademy Awards</h1>
-    <h3>{{user.name}}</h3>
     <div class="container">
       {{#each categories}}
         <div class="frame--category">
@@ -63,6 +77,6 @@
   {{/content}}
 
   {{#content "scripts"}}
-    <script src="/dist/add.min.js"></script>
+    <script src="/dist/scripts/add.min.js"></script>
   {{/content}}
 {{/extend}}

@@ -12,21 +12,21 @@ module.exports = function(grunt) {
     uglify: {
       target: {
         files: {
-          'dist/common.min.js': [
+          'dist/scripts/common.min.js': [
             'bower_components/jquery/dist/jquery.js',
             'bower_components/formjax/dist/formjax.js'
           ],
-          'dist/home.min.js': [
+          'dist/scripts/home.min.js': [
             'app/www/public/scripts/home.js',
           ],
-          'dist/profile.min.js': [
+          'dist/scripts/profile.min.js': [
             'bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js',
             'app/www/public/scripts/profile.js'
           ],
-          'dist/add.min.js': [
+          'dist/scripts/add.min.js': [
             'app/www/public/scripts/add.js',
           ],
-          'dist/vote.min.js': [
+          'dist/scripts/vote.min.js': [
             'app/www/public/scripts/vote.js',
           ]
         }
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'app/www/public/styles',
           src: ['*.css', '!*.min.css'],
-          dest: 'dist',
+          dest: 'dist/styles',
           ext: '.min.css'
         }],
         options: {

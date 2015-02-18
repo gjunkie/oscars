@@ -53,6 +53,12 @@ exports.add = {
     apiView: {
       requests: [
         {
+          variable: 'user',
+          url: function(request) {
+            return '/api/user';
+          }
+        },
+        {
           variable: 'categories',
           url: function(request) {
             return '/api/categories';
@@ -60,22 +66,6 @@ exports.add = {
         }
       ],
       view: 'add'
-    }
-  }
-};
-
-exports.actors = {
-  handler: {
-    apiView: {
-      requests: [
-        {
-          variable: 'actors',
-          url: function(request) {
-            return '/api/actors';
-          }
-        }
-      ],
-      view: 'actors'
     }
   }
 };

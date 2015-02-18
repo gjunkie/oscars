@@ -27,7 +27,6 @@ exports.register = function(plugin, options, next) {
     { method: 'GET', path: '/', config: nominees.homepage },
     { method: 'GET', path: '/setup', config: nominees.setup },
     { method: 'GET', path: '/add', config: nominees.add },
-    { method: 'GET', path: '/actors', config: nominees.actors },
 
     // user pages
     { method: 'GET', path: '/vote', config: user.vote },

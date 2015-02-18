@@ -1,5 +1,5 @@
 body {
-  font-family: 'helvetica neue', 'sans-serif';
+  font-family: 'proxima nova light', 'helvetica neue', 'sans-serif';
 }
 
 .container {
@@ -9,4 +9,54 @@ body {
 
 .container p {
   margin-bottom: 20px;
+}
+
+.header {
+  height: 150px;
+  background-color: #000;
+  background-image: url('/dist/images/banner.jpg');
+  background-repeat: no-repeat;
+  background-position: 67% 0px;
+}
+
+h1 {
+  padding-top: 62px;
+  padding-left: 400px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+h1 span {
+  font-size: 1.3em;
+  color: #ab922e;
+}
+
+.nav {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.nav ul {
+  width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: center;
+}
+
+.nav li {
+  display: inline-block;
+  border-right: 1px solid #fff;
+  margin: 0 10px;
+}
+
+.nav li:last-child {
+  border: none;
+}
+
+.nav li a {
+  text-decoration: none;
+}
+
+.nav li a:hover {
+  text-decoration: underline;
 }

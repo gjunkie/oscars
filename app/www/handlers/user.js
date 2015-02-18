@@ -32,6 +32,11 @@ exports.profile = {
           }
         }
       ],
+      before: function(request, reply, data) {
+        if (!data.user) {
+          return reply.redirect('/login');
+        }
+      },
       view: 'profile'
     }
   }
