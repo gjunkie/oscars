@@ -1,7 +1,7 @@
 {{#extend "layout"}}
   {{#content "title"}}Add Nominees{{/content}}
   {{#content "styles"}}
-    <link rel="stylesheet" href="dist/styles/common.min.css">
+    <link href="dist/styles/add.min.css" rel="stylesheet">
   {{/content}}
   {{#content "nav"}}
     <div class="nav">
@@ -9,6 +9,9 @@
         {{#if user}}
           <li>
             <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/vote">Vote</a>
           </li>
           <li>
             <a href="/profile">Profile</a>
@@ -27,8 +30,8 @@
   {{#content "body"}}
     <div class="container">
       {{#each categories}}
-        <div class="frame--category">
-          <h4>{{name}}</h4>
+        <div class="category">
+          <h2>{{name}}</h2>
           {{#if nominees}}
             {{#each nominees}}
               <div>
@@ -39,7 +42,7 @@
                     <input type="hidden" name="_nomId" value="{{_id}}">
                     <input type="hidden" name="_id" value="{{film._id}}">
                     <input type="hidden" name="_artistId" value="{{film.director._id}}">
-                    <input type="submit" value="Update">
+                    <input type="submit" value="Update" class="update">
                   </form>
                 {{else}}
                   <form action="/api/edit/artist" method="POST">
@@ -48,7 +51,7 @@
                     <input type="hidden" name="_nomId" value="{{_id}}">
                     <input type="hidden" name="_id" value="{{artist._id}}">
                     <input type="hidden" name="_filmId" value="{{film._id}}">
-                    <input type="submit" value="Update">
+                    <input type="submit" value="Update" class="update">
                   </form>
                 {{/ifequal}}
               </div>
@@ -60,14 +63,14 @@
                 <input type="text" class="" name="title" placeholder="{{../../primary}}">
                 <input type="text" name="director" placeholder="{{../../secondary}}">
                 <input type="hidden" name="category" value="{{../../name}}">
-                <input type="submit" value="Nominate">
+                <input type="submit" value="Nominate" class="nominate">
               </form>
             {{else}}
               <form action="/api/add/artist" method="POST">
                 <input type="text" class="" name="name" placeholder="{{../../primary}}">
                 <input type="text" name="title" placeholder="{{../../secondary}}">
                 <input type="hidden" name="category" value="{{../../name}}">
-                <input type="submit" value="Nominate">
+                <input type="submit" value="Nominate" class="nominate">
               </form>
             {{/ifequal}}
           {{/times}}
