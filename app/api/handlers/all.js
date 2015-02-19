@@ -413,22 +413,6 @@ exports.addFilm = {
 exports.addArtist = {
   handler: {
     waterfall: [
-      // find artist
-      function(request, done) {
-        var Artist = request.server.plugins.db.Artist;
-        Artist
-          .findOne({ name: request.payload.name })
-          .exec(function(err, artist){
-            if (err) {
-              return done(Hapi.error.internal('find artist', err));
-            }
-            if (!artist) {
-              done(null, request);
-            } else {
-              return done(Hapi.error.internal('artist exists', err));
-            }
-          });
-      },
       // find category
       function(request, done) {
         var Category = request.server.plugins.db.Category;
@@ -476,26 +460,38 @@ exports.addArtist = {
       // create artist
       function(request, film, category, done) {
         var Artist = request.server.plugins.db.Artist;
-        var artistData = {
-          name: request.payload.name,
-          slug: request.payload.name.split(' ').join('-').toLowerCase(),
-        }
-        Artist.create(artistData, function(err, newArtist) {
-          if (err) {
-            return done(Hapi.error.internal('create artist', err));
-          }
-          var nominationData = {
-            category: request.payload.category,
-            slug: request.payload.category.split(' ').join('-').toLowerCase(),
-            film: film
-          }
-          newArtist.nominations.push(nominationData);
-          newArtist.save(function(err, updatedArtist){
-            if (err) {
-              return done(Hapi.error.internal('save artist', err));
+        Artist
+          .findOne({ name: request.payload.name })
+          .exec(function(err, artist){
+            if (!artist) {
+              var artistData = {
+                name: request.payload.name,
+                slug: request.payload.name.split(' ').join('-').toLowerCase(),
+              }
+              Artist.create(artistData, function(err, newArtist) {
+                if (err) {
+                  return done(Hapi.error.internal('create artist', err));
+                }
+                done(null, request, film, newArtist, category);
+              });
+            } else {
+              done(null, request, film, artist, category);
             }
-            done(null, request, film, updatedArtist, category);
           });
+      },
+      // add nominations to artist
+      function(request, film, artist, category, done) {
+        var nominationData = {
+          category: request.payload.category,
+          slug: request.payload.category.split(' ').join('-').toLowerCase(),
+          film: film
+        }
+        artist.nominations.push(nominationData);
+        artist.save(function(err, updatedArtist){
+          if (err) {
+            return done(Hapi.error.internal('save artist', err));
+          }
+          done(null, request, film, artist, category);
         });
       },
       // create nominee
