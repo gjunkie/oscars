@@ -2,6 +2,25 @@ body {
   font-family: 'proxima nova light', 'helvetica neue', 'sans-serif';
 }
 
+.notifly {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  padding: 10px 25px;
+  background-color: #fff;
+  border-radius: 3px;
+  font-size: 1.2em;
+  color: #fff;
+}
+
+.notifly.success {
+  background-color: #12EC25;
+}
+
+.notifly.error {
+  background-color: #EC1212;
+}
+
 .container {
   width: 800px;
   margin: 0 auto;

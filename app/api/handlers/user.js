@@ -102,6 +102,7 @@ exports.tallies = {
               var userData = {
                 name: user.name,
                 tally: user.correct,
+                id: user.id,
                 color: user.color
               };
               userTallies.push(userData);

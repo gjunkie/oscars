@@ -14,6 +14,7 @@ module.exports = function(grunt) {
         files: {
           'dist/scripts/common.min.js': [
             'bower_components/jquery/dist/jquery.js',
+            'bower_components/notifly.js/notifly.js',
             'bower_components/formjax/dist/formjax.js'
           ],
           'dist/scripts/home.min.js': [

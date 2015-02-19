@@ -28,5 +28,4 @@ $("form input").on("change", function() {
   $(this).parents('.nominee--info').removeClass('loser').addClass('winner');
 });
 
-// get tallies on page load
 getTallies();
