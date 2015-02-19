@@ -49,17 +49,17 @@
                   <div class="nominee--info{{#ifequal marked true}}{{#if winner}} winner{{else}} loser{{/if}}{{/ifequal}}">
                     <fieldset>
                       {{#ifequal type 'film'}}
-                        <label for="{{slug}}">
+                        <label for="{{id}}">
                           <h4>{{film.title}}</h4>
                           <h5>{{film.director.name}}</h5>
                         </label>
-                        <input type="radio" name="name" id="{{slug}}" value="{{film.title}}" data-category="{{../../slug}}">
+                        <input type="radio" name="name" id="{{id}}" value="{{film.title}}" data-category="{{../../slug}}">
                       {{else}}
-                        <label for="{{slug}}">
+                        <label for="{{id}}">
                           <h4>{{name}}</h4>
                           <h5>{{film.title}}</h5>
                         </label>
-                        <input type="radio" name="name" id="{{slug}}" value="{{name}}" data-category="{{../../slug}}">
+                        <input type="radio" name="name" id="{{id}}" value="{{name}}" data-category="{{../../slug}}">
                       {{/ifequal}}
                     </fieldset>
                   </div>

@@ -324,9 +324,11 @@ exports.addFilm = {
       // find/create film
       function(request, category, done) {
         var Film = request.server.plugins.db.Film;
+        var slug = request.payload.title.split(' ').join('-').toLowerCase()
+        slug = slug.replace(/,/g, "");
         var filmData = {
           title: request.payload.title,
-          slug: request.payload.title.split(' ').join('-').toLowerCase(),
+          slug: slug,
           nominations: category
         }
         Film
@@ -357,9 +359,11 @@ exports.addFilm = {
               return done(Hapi.error.internal('find artist', err));
             }
             if (!artist) {
+              var slug = request.payload.director.split(' ').join('-').toLowerCase()
+              slug = slug.replace(/,/g, "");
               artistData = {
                 name: request.payload.director,
-                slug: request.payload.director.split(' ').join('-').toLowerCase()
+                slug: slug
               }
               Artist.create(artistData, function(err, newArtist) {
                 if (err) {
@@ -381,9 +385,11 @@ exports.addFilm = {
       // create nominee
       function(request, category, film, done) {
         var Nominee = request.server.plugins.db.Nominee;
+        var slug = film.title.split(' ').join('-').toLowerCase(),
+        slug = slug.replace(/,/g, "");
         var nomineeData = {
           name: film.title,
-          slug: film.title.split(' ').join('-').toLowerCase(),
+          slug: slug,
           category: category.name,
           type: 'film',
           film: film
@@ -435,9 +441,11 @@ exports.addArtist = {
               return done(Hapi.error.internal('find film', err));
             }
             if (!film) {
+              var slug = request.payload.title.split(' ').join('-').toLowerCase()
+              slug = slug.replace(/,/g, "");
               var filmData = {
                 title: request.payload.title,
-                slug: request.payload.title.split(' ').join('-').toLowerCase()
+                slug: slug 
               }
               Film.create(filmData, function(err, newFilm) {
                 if (err) {
@@ -464,9 +472,11 @@ exports.addArtist = {
           .findOne({ name: request.payload.name })
           .exec(function(err, artist){
             if (!artist) {
+              var slug = request.payload.name.split(' ').join('-').toLowerCase(),
+              slug = slug.replace(/,/g, "");
               var artistData = {
                 name: request.payload.name,
-                slug: request.payload.name.split(' ').join('-').toLowerCase(),
+                slug: slug,
               }
               Artist.create(artistData, function(err, newArtist) {
                 if (err) {
@@ -481,9 +491,11 @@ exports.addArtist = {
       },
       // add nominations to artist
       function(request, film, artist, category, done) {
+        var slug = request.payload.category.split(' ').join('-').toLowerCase(),
+        slug = slug.replace(/,/g, "");
         var nominationData = {
           category: request.payload.category,
-          slug: request.payload.category.split(' ').join('-').toLowerCase(),
+          slug: slug,
           film: film
         }
         artist.nominations.push(nominationData);
@@ -497,9 +509,11 @@ exports.addArtist = {
       // create nominee
       function(request, film, artist, category, done) {
         var Nominee = request.server.plugins.db.Nominee;
+        var slug = artist.name.split(' ').join('-').toLowerCase(),
+        slug = slug.replace(/,/g, "");
         var nomineeData = {
           name: artist.name,
-          slug: artist.name.split(' ').join('-').toLowerCase(),
+          slug: slug,
           category: category.name,
           type: 'artist',
           artist: artist,
@@ -720,6 +734,7 @@ exports.winner = {
             name: request.payload.name
           })
           .exec(function(err, nominee){
+            console.log(nominee);
             nominee.winner = true;
             nominee.save(function(err, updatedNominee){
               if (err) {
@@ -796,6 +811,7 @@ exports.editFilm = {
           .exec(function(err, nominee) {
             nominee.title = request.payload.title;
             nominee.slug = request.payload.title.split(' ').join('-').toLowerCase();
+            nominee.slug = nominee.slug.replace(/,/g, "");
             nominee.save(function(err, updatedNominee){
               if (err) {
                 return done(Hapi.error.internal('save nominee', err));
@@ -814,6 +830,7 @@ exports.editFilm = {
           .exec(function(err, film) {
             film.title = request.payload.title;
             film.slug = request.payload.title.split(' ').join('-').toLowerCase();
+            film.slug = film.slug.replace(/,/g, "");
             film.save(function(err, updatedFilm) {
               if (err) {
                 return done(Hapi.error.internal('save film', err));
@@ -832,6 +849,7 @@ exports.editFilm = {
           .exec(function(err, artist) {
             artist.name = request.payload.director;
             artist.slug = request.payload.director.split(' ').join('-').toLowerCase();
+            artist.slug = artist.slug.replace(/,/g, "");
             artist.save(function(err, updatedArtist){
               if (err) {
                 return done(Hapi.error.internal('save artist', err));
@@ -857,6 +875,7 @@ exports.editArtist= {
           .exec(function(err, nominee) {
             nominee.name = request.payload.name;
             nominee.slug = request.payload.name.split(' ').join('-').toLowerCase();
+            nominee.slug = nominee.slug.replace(/,/g, "");
             nominee.save(function(err, updatedNominee){
               if (err) {
                 return done(Hapi.error.internal('save nominee', err));
@@ -875,6 +894,7 @@ exports.editArtist= {
           .exec(function(err, artist) {
             artist.name = request.payload.name;
             artist.slug = request.payload.name.split(' ').join('-').toLowerCase();
+            artist.slug = artist.slug.replace(/,/g, "");
             artist.save(function(err, updatedArtist) {
               if (err) {
                 return done(Hapi.error.internal('save artist', err));
@@ -893,6 +913,7 @@ exports.editArtist= {
           .exec(function(err, film) {
             film.title = request.payload.title;
             film.slug = request.payload.title.split(' ').join('-').toLowerCase();
+            film.slug = film.slug.replace(/,/g, "");
             film.save(function(err, updatedFilm){
               if (err) {
                 return done(Hapi.error.internal('save film', err));
