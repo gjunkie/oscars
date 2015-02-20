@@ -7,7 +7,8 @@ var getTallies = function() {
     success: function(tallies) {
       $('.tallies ul').html('');
       for (var i = 0; k = tallies.length, i < k; i++) {
-        $('.tallies ul').append('<li><span class="user-mark" style="background-color: '+tallies[i].color+'"></span>'+tallies[i].name+': '+tallies[i].tally+'</li>');
+        var color = tallies[i].color || '#E0E0E0';
+        $('.tallies ul').append('<li><span class="user-mark" style="background-color: '+color+'"></span>'+tallies[i].name+': '+tallies[i].tally+'</li>');
       }
     },
     error: function(response) {
