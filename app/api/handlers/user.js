@@ -1,4 +1,5 @@
 var async = require('async');
+var _ = require('lodash-node');
 
 // TODO: change name to createUser
 exports.login = {
@@ -110,7 +111,10 @@ exports.tallies = {
               userTallies.push(userData);
               cb();
             }, function(){
-              done(null, userTallies);
+              var sortedTallies = _.sortBy(userTallies, function(user){
+                return -user.tally;
+              });
+              done(null, sortedTallies);
             });
           });
       }
