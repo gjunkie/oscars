@@ -29,8 +29,15 @@
   {{/content}}
   {{#content "body"}}
     <div class="container">
+      {{#unless user.color}}
+        <div class="welcome">
+          <h2>Welcome Appcademy Awards!</h2>
+          <p>First things first, head on over to your <a href="/profile">profile</a> and pick yourself a fancy color. You can also change your user name.</p>
+          <p>After that, head on over to the <a href="/vote">vote</a> page and pick the winners!</p>
+        </div>
+      {{/unless}}
       <div class="toggle-switches"><span class="expand">expand all</span> | <span class="collapse">collapse all</span></div>
-      <ul class="categories">
+      <ul class="categories{{#unless user.color}} disabled{{/unless}}">
         {{#each categories}}
           <li class="categories--category active">
             <h2>{{name}}</h2>
