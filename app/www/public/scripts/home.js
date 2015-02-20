@@ -56,8 +56,8 @@ $(".clear-winner").on("click", function() {
 });
 
 
-$(".categories--category").on("click", function() {
-  $(this).toggleClass('active');
+$(".categories--category h2").on("click", function() {
+  $(this).parent().toggleClass('active');
 });
 
 $(".toggle-switches span").on("click", function() {
