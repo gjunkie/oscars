@@ -15,16 +15,49 @@ var getTallies = function() {
     }
   });
 }
+
+var clearWinner = function(slug) {
+  $.ajax({
+    url: '/api/clear/winner',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      category: slug
+    },
+    success: function(tallies) {
+      getTallies();
+      var selector = '#' + slug;
+      $(selector).find('input[type=radio]').removeAttr('checked');
+      $(selector).find('.nominee--info').removeClass('winner loser');
+    },
+    error: function(response) {
+      console.log(response);
+      Notifly.create({ 
+        message: 'There was a problem',
+        class: 'success',
+        linger: 2500,
+        fadeIn: 1250,
+        fadeOut: 1250
+      });
+    }
+  });
+}
+
 $("form").formjax({
   success: function(response) {
     getTallies();
   }
 });
 
+$(".clear-winner").on("click", function() {
+  var categorySlug = $(this).data("category");
+  clearWinner(categorySlug);
+});
+
 $("form input").on("change", function() {
   parentCatId = '#' + $(this).data('category');
   $(parentCatId).submit();
-  $(parentCatId).find('.nominee--info').addClass('loser');
+  $(parentCatId).find('.nominee--info').removeClass('winner').addClass('loser');
   $(this).parents('.nominee--info').removeClass('loser').addClass('winner');
 });
 

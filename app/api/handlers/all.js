@@ -734,7 +734,6 @@ exports.winner = {
             name: request.payload.name
           })
           .exec(function(err, nominee){
-            console.log(nominee);
             nominee.winner = true;
             nominee.save(function(err, updatedNominee){
               if (err) {
@@ -796,7 +795,92 @@ exports.winner = {
       }
     ]
   }
-}
+};
+
+exports.clearWinner = {
+  handler: {
+    waterfall: [
+      // find category
+      function(request, done) {
+        var Category = request.server.plugins.db.Category;
+        Category
+          .findOne({ slug: request.payload.category })
+          .populate('nominees')
+          .exec(function(err, category){
+            if (err) {
+              return done(Hapi.error.internal('find category', err));
+            }
+            done(null, request, category);
+          });
+      },
+      // reset all nominees to be non-winners
+      function(request, category, done) {
+        async.each(category.nominees, function(nominee, cb) {
+          nominee.winner = false;
+          nominee.marked = false;
+          nominee.save(function(err, updatedNominee){
+            if (err) {
+              console.log(err);
+            }
+            cb();
+          });
+        }, function(err) {
+          done(null, request);
+        });
+      },
+      // reset all counts to zero
+      function(request, done) {
+        var User = request.server.plugins.db.User;
+        User
+          .find()
+          .exec(function(err, users){
+            async.each(users, function(user, cb) {
+              user.correct = 0;
+              user.save(function(err, updatedUser){
+                if (err) {
+                  return done(Hapi.error.internal('save user', err));
+                }
+                cb();
+              });
+            }, function(err) {
+              done(null, request);
+            });
+          });
+      },
+      // tally correct guesses for everyone
+      function(request, done) {
+        var Nominee = request.server.plugins.db.Nominee;
+        Nominee
+          .find()
+          .populate('votes')
+          .exec(function(err, nominees){
+            async.each(nominees, function(nominee, cb) {
+              _.map(nominee.votes, function(user){
+                if (nominee.winner) {
+                  user.correct++;
+                  // this will save the user for every correct vote...
+                  // should first count total correct, then set value and save
+                  user.save(function(err, updatedUser){
+                    if (err) {
+                      console.log(err);
+                    }
+                  });
+                }
+              });
+              nominee.save(function(err, updatedNominee){
+                if (err) {
+                  console.log(err);
+                }
+                cb();
+              });
+            }, function(err) {
+              done(null, true);
+            });
+          });
+      }
+    ]
+  }
+};
 
 exports.editFilm = {
   handler: {

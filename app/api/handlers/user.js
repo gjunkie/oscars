@@ -29,7 +29,6 @@ exports.login = {
               });
           } else {
             // TODO: should prob update the user if they exist
-            console.log('done 2');
             done(null, user);
           }
         });
@@ -93,7 +92,6 @@ exports.tallies = {
         User
           .find()
           .exec(function(err, users){
-            console.log(users);
             if (err) {
               console.log(err);
             }

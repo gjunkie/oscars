@@ -18,9 +18,21 @@ label:hover {
 }
 
 .categories--category {
+  position: relative;
   padding-top: 5px;
   padding-bottom: 20px;
   background: #faf8ee;
+}
+
+.categories--category .clear-winner {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 12px;
+}
+
+.categories--category .clear-winner:hover {
+  cursor: pointer;
 }
 
 .categories--category h2 {

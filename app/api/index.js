@@ -19,6 +19,7 @@ exports.register = function(plugin, options, next) {
     { method: 'POST', path: '/api/add/film', config: handlers.addFilm },
     { method: 'POST', path: '/api/add/artist', config: handlers.addArtist },
     { method: 'POST', path: '/api/winner', config: handlers.winner },
+    { method: 'POST', path: '/api/clear/winner', config: handlers.clearWinner },
     { method: 'POST', path: '/api/vote', config: handlers.vote },
     { method: 'POST', path: '/api/edit/film', config: handlers.editFilm },
     { method: 'POST', path: '/api/edit/artist', config: handlers.editArtist },
