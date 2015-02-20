@@ -36,8 +36,6 @@ label:hover {
 }
 
 .categories {
-  width: 800px;
-  margin: 0 auto;
   padding-bottom: 50px;
 }
 
@@ -174,19 +172,31 @@ label:hover {
 .tallies {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -165px;
   padding: 15px 15px 0;
   width: 185px;
   height: 100%;
   background: #fff;
   box-shadow: 0 0 16px -3px #000;
+  transition-duration: .3s;
+}
+
+.tallies.active {
+  right: 0;
 }
 
 .tallies h3 {
+  position: relative;
+  right: -85px;
   margin-bottom: 10px;
   padding-bottom: 5px;
   text-align: center;
   border-bottom: 1px solid #000;
+  transition-duration: .3s;
+}
+
+.tallies.active h3 {
+  right: 0px
 }
 
 .tallies li {
@@ -194,7 +204,8 @@ label:hover {
 }
 
 .tallies .user-mark {
-  margin-right: 10px;
+  top: 2px;
+  margin-right: 15px;
   width: 15px;
   height: 15px;
 }

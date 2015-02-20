@@ -60,6 +60,12 @@ $(".categories--category h2").on("click", function() {
   $(this).parent().toggleClass('active');
 });
 
+$(".tallies").hover(function() {
+  $(this).addClass('active');
+}, function(){
+  $(this).removeClass('active');
+});
+
 $(".toggle-switches span").on("click", function() {
   if ($(this).hasClass('expand')) {
     $('.categories--category').addClass('active');
