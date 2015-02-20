@@ -54,6 +54,19 @@ $(".clear-winner").on("click", function() {
   clearWinner(categorySlug);
 });
 
+
+$(".categories--category").on("click", function() {
+  $(this).toggleClass('active');
+});
+
+$(".toggle-switches span").on("click", function() {
+  if ($(this).hasClass('expand')) {
+    $('.categories--category').addClass('active');
+  } else {
+    $('.categories--category').removeClass('active');
+  }
+});
+
 $("form input").on("change", function() {
   parentCatId = '#' + $(this).data('category');
   $(parentCatId).submit();

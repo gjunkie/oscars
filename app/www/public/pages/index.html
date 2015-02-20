@@ -30,9 +30,10 @@
   {{/content}}
   {{#content "body"}}
     <div class="container">
+      <div class="toggle-switches"><span class="expand">expand all</span> | <span class="collapse">collapse all</span></div>
       <ul class="categories">
         {{#each categories}}
-          <li class="categories--category">
+          <li class="categories--category active">
             <h2>{{name}}</h2>
             <form action="/api/winner" method="POST" id="{{slug}}">
               <div class="headings">
