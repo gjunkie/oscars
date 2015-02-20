@@ -1,5 +1,6 @@
 var async = require('async');
 
+// TODO: change name to createUser
 exports.login = {
   handler: {
     waterfall: [
@@ -42,16 +43,19 @@ exports.user = {
     waterfall: [
       // get user data
       function(request, done) {
-        var User = request.server.plugins.db.User;
-        User
-          .findOne({ id: request.auth.credentials.profile.raw.id })
-          .exec(function(err, user){
-            if (err) {
-              console.log(err);
-              done(null, 'error');
-            }
-            done(null, user);
-          });
+        if (request.auth.isAuthenticated) {
+          var User = request.server.plugins.db.User;
+          User
+            .findOne({ id: request.auth.credentials.profile.raw.id })
+            .exec(function(err, user){
+              if (err) {
+                console.log(err);
+              }
+              done(null, user);
+            });
+        } else {
+          done(null, false);
+        }
       }
     ]
   }

@@ -1,5 +1,10 @@
 
 exports.vote = {
+  plugins: {
+    'hapi-auth-cookie': {
+      redirectTo: '/login'
+    }
+  },
   handler: {
     apiView: {
       requests: [
@@ -29,6 +34,11 @@ exports.vote = {
 };
 
 exports.profile = {
+  plugins: {
+    'hapi-auth-cookie': {
+      redirectTo: '/login'
+    }
+  },
   handler: {
     apiView: {
       requests: [
@@ -39,11 +49,6 @@ exports.profile = {
           }
         }
       ],
-      before: function(request, reply, data) {
-        if (!data.user) {
-          return reply.redirect('/login');
-        }
-      },
       view: 'profile'
     }
   }

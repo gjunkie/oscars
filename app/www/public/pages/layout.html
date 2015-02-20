@@ -13,7 +13,8 @@
 
   {{/block}}
 
-  <body>
+  <body{{#unless user}} class="logged-out"{{/unless}}>
+    {{#unless user}}<div class="blur-effect">{{/unless}}
     <!-- common header here -->
     {{#block "header"}}
       <div class="header">
@@ -33,6 +34,16 @@
     {{#block "footer"}}
 
     {{/block}}
+    {{#unless user}}</div>{{/unless}}
+    {{#unless user}}
+      <div class="login-modal">
+        <div>
+          <h2>Welcome to Appcademy Awards!</h2>
+          <p>Login to play with us!</p>
+        </div>
+        <a href="/login">Login Required</a>
+      </div>
+    {{/unless}}
 
     <script src="/dist/scripts/common.min.js"></script>
 

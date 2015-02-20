@@ -699,6 +699,9 @@ exports.winner = {
     waterfall: [
       // find category
       function(request, done) {
+        if (!request.auth.isAuthenticated) {
+          done(null, false);
+        }
         var Category = request.server.plugins.db.Category;
         Category
           .findOne({ name: request.payload.category })

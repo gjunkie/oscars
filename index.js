@@ -33,7 +33,6 @@ server.register([
   server.auth.strategy('session', 'cookie', 'try', {
     password: 'cookie_encryption_password',
     cookie: 'fa-sid',
-    redirectTo: '/login',
     isSecure: false
   });
 

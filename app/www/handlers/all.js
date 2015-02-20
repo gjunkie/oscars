@@ -18,7 +18,6 @@ exports.homepage = {
       ],
       before: function(request, reply, data) {
         if (!data.categories.length) {
-          console.log('we dont have cats');
           return reply.redirect('/setup');
         }
       },
@@ -28,6 +27,11 @@ exports.homepage = {
 };
 
 exports.setup = {
+  plugins: {
+    'hapi-auth-cookie': {
+      redirectTo: '/login'
+    }
+  },
   handler: {
     apiView: {
       requests: [
@@ -40,7 +44,6 @@ exports.setup = {
       ],
       before: function(request, reply, data) {
         if (data.categories.length) {
-          console.log('we have cats');
           return reply.redirect('/');
         }
       }
@@ -49,6 +52,11 @@ exports.setup = {
 };
 
 exports.add = {
+  plugins: {
+    'hapi-auth-cookie': {
+      redirectTo: '/login'
+    }
+  },
   handler: {
     apiView: {
       requests: [

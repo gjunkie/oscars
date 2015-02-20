@@ -1,7 +1,6 @@
 {{#extend "layout"}}
   {{#content "title"}}Appcademy Awards{{/content}}
   {{#content "styles"}}
-    <link rel="stylesheet" href="dist/styles/common.min.css">
     <link rel="stylesheet" href="dist/styles/home.min.css">
   {{/content}}
   {{#content "nav"}}
@@ -78,11 +77,13 @@
         {{/each}}
       </ul>
     </div>
-    <div class="tallies">
-      <h3>Score</h3>
-      <ul>
-      </ul>
-    </div>
+    {{#if user}}
+      <div class="tallies">
+        <h3>Score</h3>
+        <ul>
+        </ul>
+      </div>
+    {{/if}}
   {{/content}}
   {{#content "scripts"}}
     <script src="/dist/scripts/home.min.js"></script>
