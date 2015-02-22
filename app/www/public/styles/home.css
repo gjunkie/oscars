@@ -62,8 +62,9 @@ label:hover {
   display: none;
   position: absolute;
   bottom: 5px;
-  right: 5px;
-  font-size: 12px;
+  right: 10px;
+  font-size: 1em;
+  color: #C0C0C0;
 }
 .categories--category.active .clear-winner {
   display: block;
@@ -71,6 +72,7 @@ label:hover {
 
 .categories--category .clear-winner:hover {
   cursor: pointer;
+  color: #232323;
 }
 
 .categories--category h2 {
@@ -186,8 +188,25 @@ label:hover {
   transition-duration: .3s;
 }
 
-.tallies.active {
+.tallies.active,
+.tallies.pinned {
   right: 0;
+}
+
+.tallies .pin {
+  position: absolute;
+  top: 17px;
+  left: 19px;
+  color: #C0C0C0;
+  z-index: 1;
+}
+
+.tallies .pin:hover {
+  cursor: pointer;
+}
+
+.tallies.pinned .pin {
+  color: #232323;
 }
 
 .tallies h3 {
@@ -200,7 +219,8 @@ label:hover {
   transition-duration: .3s;
 }
 
-.tallies.active h3 {
+.tallies.active h3,
+.tallies.pinned h3 {
   right: 0px
 }
 

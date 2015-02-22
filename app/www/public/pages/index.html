@@ -79,13 +79,14 @@
               {{/each}}
               <input type="hidden" name="category" value="{{name}}">
             </form>
-            <div class="clear-winner" data-category="{{slug}}">clear winner</div>
+            <div class="clear-winner icon-reset" data-category="{{slug}}"></div>
           </li>
         {{/each}}
       </ul>
     </div>
     {{#if user}}
       <div class="tallies">
+        <span class="icon-pin pin"></span>
         <h3>Score</h3>
         <ul>
         </ul>

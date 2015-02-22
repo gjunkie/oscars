@@ -100,6 +100,11 @@ $(".tallies").hover(function() {
   $(this).removeClass('active');
 });
 
+$(".tallies .pin").on("click", function() {
+  console.log('click pin');
+  $('.tallies').toggleClass('pinned');
+});
+
 $(".toggle-switches span").on("click", function() {
   if ($(this).hasClass('expand')) {
     $('.categories--category').addClass('active');
