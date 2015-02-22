@@ -18,17 +18,18 @@ module.exports = function(grunt) {
             'bower_components/formjax/dist/formjax.js'
           ],
           'dist/scripts/home.min.js': [
-            'app/www/public/scripts/home.js',
+            'app/www/public/scripts/plugins/countdown.min.js',
+            'app/www/public/scripts/home.js'
           ],
           'dist/scripts/profile.min.js': [
             'bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js',
             'app/www/public/scripts/profile.js'
           ],
           'dist/scripts/add.min.js': [
-            'app/www/public/scripts/add.js',
+            'app/www/public/scripts/add.js'
           ],
           'dist/scripts/vote.min.js': [
-            'app/www/public/scripts/vote.js',
+            'app/www/public/scripts/vote.js'
           ]
         }
       }

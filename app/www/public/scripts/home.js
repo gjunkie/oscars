@@ -120,4 +120,20 @@ $("form input").on("change", function() {
   $(this).parents('.nominee--info').removeClass('loser').addClass('winner');
 });
 
+var clock = document.getElementById("time")
+var targetDate = new Date('Wed Feb 22 2015 16:00:00 GMT-0800 (PST)');
+var now = new Date();
+
+if (now < targetDate) {
+  clock.innerHTML = countdown(targetDate).toString();
+  setInterval(function(){
+    if (now < targetDate) {
+      clock.innerHTML = countdown(targetDate).toString();
+      now = new Date();
+    } else {
+      $('.deadline').hide();
+    }
+  }, 1000);
+}
+
 getTallies();

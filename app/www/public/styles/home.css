@@ -243,6 +243,20 @@ label:hover {
   height: 15px;
 }
 
+.deadline {
+  margin: 0 auto;
+  font-size: 1em;
+  text-align: center;
+}
+
+.deadline p {
+  margin-bottom: 10px;
+}
+
+#time {
+  color: #FF0000;
+}
+
 .login-modal {
   position: fixed;
   width: 100%;
