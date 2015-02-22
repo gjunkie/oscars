@@ -141,12 +141,17 @@ label:hover {
   width: 20px;
   height: 20px;
   border-radius: 10px;
+  transition-duration: .2s;
 }
 
 .user-mark:hover {
   cursor: default;
 }
 
+.user-mark.inactive,
+.user-mark.hoverInactive {
+  opacity: .2;
+}
 .user-mark span {
   display: none;
   position: absolute;
@@ -201,6 +206,14 @@ label:hover {
 
 .tallies li {
   margin-bottom: 10px;
+}
+
+.tallies li.inactive {
+  opacity: .2;
+}
+
+.tallies li:hover {
+  cursor: pointer;
 }
 
 .tallies .user-mark {

@@ -50,7 +50,7 @@
                 <div class="nominee">
                   <div class="nominee--votes">
                     {{#each votes}}
-                    <a style="background-color:{{#if color}}{{color}}{{else}}#E0E0E0{{/if}};" class="user-mark"><span>{{name}}</span></a>
+                    <a style="background-color:{{#if color}}{{color}}{{else}}#E0E0E0{{/if}};" class="user-mark" data-user="{{id}}"><span>{{name}}</span></a>
                     {{/each}}
                   </div>
                   <div class="nominee--info{{#ifequal marked true}}{{#if winner}} winner{{else}} loser{{/if}}{{/ifequal}}">
@@ -72,7 +72,7 @@
                   </div>
                   <div class="nominee--favorites">
                     {{#each favorites}}
-                      <a style="background-color:{{#if color}}{{color}}{{else}}#E0E0E0{{/if}};" class="user-mark"><span>{{name}}</span></a>
+                      <a style="background-color:{{#if color}}{{color}}{{else}}#E0E0E0{{/if}};" class="user-mark" data-user="{{id}}"><span>{{name}}</span></a>
                     {{/each}}
                   </div>
                 </div>
