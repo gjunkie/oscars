@@ -205,7 +205,7 @@ label:hover {
 }
 
 .tallies li {
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .tallies li.inactive {
