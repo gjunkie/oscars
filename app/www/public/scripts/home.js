@@ -120,6 +120,7 @@ $("form input").on("change", function() {
   $(this).parents('.nominee--info').removeClass('loser').addClass('winner');
 });
 
+/*
 var clock = document.getElementById("time")
 var targetDate = new Date('Wed Feb 22 2015 17:00:00 GMT-0800 (PST)');
 var now = new Date();
@@ -135,5 +136,6 @@ if (now < targetDate) {
     }
   }, 1000);
 }
+*/
 
 getTallies();
