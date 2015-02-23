@@ -121,7 +121,7 @@ $("form input").on("change", function() {
 });
 
 var clock = document.getElementById("time")
-var targetDate = new Date('Wed Feb 22 2015 16:00:00 GMT-0800 (PST)');
+var targetDate = new Date('Wed Feb 22 2015 17:00:00 GMT-0800 (PST)');
 var now = new Date();
 
 if (now < targetDate) {
