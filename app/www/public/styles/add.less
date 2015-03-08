@@ -24,16 +24,19 @@ input[type=submit] {
   font-size: 1em;
   line-height: 10px;
   color: #fff;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-input.nominate {
-  background-color: #5DEC2D;
-}
+input {
 
-input.update {
-  background-color: #EC842D;
-}
+  &.nominate {
+    background-color: #5DEC2D;
+  }
 
-input[type=submit]:hover {
-  cursor: pointer;
+  &.update {
+    background-color: #EC842D;
+  }
 }

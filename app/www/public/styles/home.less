@@ -5,10 +5,10 @@ input {
 label {
   display: block;
   overflow: hidden;
-}
 
-label:hover {
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .welcome {
@@ -17,90 +17,95 @@ label:hover {
   border-top: 1px solid #9E9E9E;
   border-bottom: 1px solid #9E9E9E;
   text-align: center;
-}
 
-.welcome h2,
-.welcome p {
-  margin-bottom: 10px;
+  h2,
+  p {
+    margin-bottom: 10px;
+  }
 }
 
 .toggle-switches {
   text-align: right;
   font-size: .85em;
   color: #C5C5C5;
-}
 
-.toggle-switches span:hover {
-  color: #000;
-  cursor: pointer;
+  span {
+
+    &:hover {
+      color: #000;
+      cursor: pointer;
+    }
+  }
 }
 
 .categories {
   padding-bottom: 50px;
+
+  &.disabled {
+    opacity: .2;
+    pointer-events: none;
+  }
+
+  &--category {
+    position: relative;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    max-height: 34px;
+    background: #faf8ee;
+    overflow: hidden;
+
+    &.active {
+      margin-bottom: 0;
+      max-height: 1000px;
+
+      .clear-winner {
+        display: block;
+      }
+    }
+
+    .clear-winner {
+      display: none;
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+      font-size: 1em;
+      color: #C0C0C0;
+
+      &:hover {
+        cursor: pointer;
+        color: #232323;
+      }
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      padding: 15px 45px;
+      background-color: #ab922e;
+      background-image: url('/dist/images/oscar.png');
+      background-repeat: no-repeat;
+      background-size: 30px;
+      background-position: 8px 7px;
+      color: #fff;
+      clear: both;
+
+      &:hover {
+        background-color: #D2B028;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
-.categories.disabled {
-  opacity: .2;
-  pointer-events: none;
-}
-
-.categories--category {
-  position: relative;
-  margin-bottom: 10px;
-  padding-bottom: 20px;
-  max-height: 34px;
-  background: #faf8ee;
-  overflow: hidden;
-}
-
-.categories--category.active {
-  margin-bottom: 0;
-  max-height: 1000px;
-}
-
-.categories--category .clear-winner {
-  display: none;
-  position: absolute;
-  bottom: 5px;
-  right: 10px;
-  font-size: 1em;
-  color: #C0C0C0;
-}
-.categories--category.active .clear-winner {
-  display: block;
-}
-
-.categories--category .clear-winner:hover {
-  cursor: pointer;
-  color: #232323;
-}
-
-.categories--category h2 {
-  margin-bottom: 15px;
-  padding: 15px 45px;
-  background-color: #ab922e;
-  background-image: url('/dist/images/oscar.png');
-  background-repeat: no-repeat;
-  background-size: 30px;
-  background-position: 8px 7px;
-  color: #fff;
-  clear: both;
-}
-
-.categories--category h2:hover {
-  background-color: #D2B028;
-  cursor: pointer;
-}
 
 .headings {
   overflow: hidden;
   margin-bottom: 15px;
-}
 
-.headings h5 {
-  float: left;
-  width: 50%;
-  text-align: center;
+  h5 {
+    float: left;
+    width: 50%;
+    text-align: center;
+  }
 }
 
 .nominee {
@@ -108,32 +113,46 @@ label:hover {
   min-height: 35px;
   text-align: center;
   clear: both;
-}
 
-.nominee .nominee--votes,
-.nominee .nominee--favorites {
-  float: left;
-  width: 30%;
-  height: 34px;
-}
+  &--votes,
+  &--favorites {
+    float: left;
+    width: 30%;
+    height: 34px;
+  }
 
-.nominee .nominee--info {
-  float: left;
-  width: 40%;
-  transition-duration: .3s;
-}
+  &--votes {
 
-.nominee .nominee--info h5 {
-  margin-bottom: 10px;
-  color: #B2B2B2;
-}
+    .user-mark {
+      float: right;
+    }
+  }
 
-.nominee .nominee--info.loser {
-  opacity: .2;
-}
+  &--favorites {
 
-.nominee .nominee--info.loser:hover {
-  opacity: .4;
+    .user-mark {
+      float: left;
+    }
+  }
+
+  &--info {
+    float: left;
+    width: 40%;
+    transition-duration: .3s;
+
+    &.loser {
+      opacity: .2;
+
+      &:hover {
+        opacity: .4;
+      }
+    }
+
+    h5 {
+      margin-bottom: 10px;
+      color: #B2B2B2;
+    }
+  }
 }
 
 .user-mark {
@@ -144,37 +163,31 @@ label:hover {
   height: 15px;
   border-radius: 10px;
   transition-duration: .2s;
+
+  &:hover {
+    cursor: default;
+
+    span {
+      display: block;
+    }
+  }
+
+  &.inactive,
+  &.hoverInactive {
+    opacity: .2;
+  }
+
+  span {
+    display: none;
+    position: absolute;
+    top: -25px;
+    padding: 4px 9px;
+    border-radius: 3px;
+    background: rgb(219, 219, 219);
+    font-size: 13px;
+  }
 }
 
-.user-mark:hover {
-  cursor: default;
-}
-
-.user-mark.inactive,
-.user-mark.hoverInactive {
-  opacity: .2;
-}
-.user-mark span {
-  display: none;
-  position: absolute;
-  top: -25px;
-  padding: 4px 9px;
-  border-radius: 3px;
-  background: rgb(219, 219, 219);
-  font-size: 13px;
-}
-
-.user-mark:hover span {
-  display: block;
-}
-
-.nominee .nominee--votes .user-mark {
-  float: right;
-}
-
-.nominee .nominee--favorites .user-mark {
-  float: left;
-}
 
 .tallies {
   position: fixed;
@@ -186,72 +199,82 @@ label:hover {
   background: #fff;
   box-shadow: 0 0 16px -3px #000;
   transition-duration: .3s;
-}
 
-.tallies.active,
-.tallies.pinned {
-  right: 0;
-}
+  &.active,
+  &.pinned {
+    right: 0;
+  }
 
-.tallies .pin {
-  position: absolute;
-  top: 17px;
-  left: 19px;
-  color: #C0C0C0;
-  z-index: 1;
-}
+  .pin {
+    position: absolute;
+    top: 17px;
+    left: 19px;
+    color: #C0C0C0;
+    z-index: 1;
 
-.tallies .pin:hover {
-  cursor: pointer;
-}
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
-.tallies.pinned .pin {
-  color: #232323;
-}
+  &.pinned {
 
-.tallies h3 {
-  position: relative;
-  right: -85px;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  text-align: center;
-  border-bottom: 1px solid #000;
-  transition-duration: .3s;
-}
+    .pin {
+      color: #232323;
+    }
 
-.tallies.active h3,
-.tallies.pinned h3 {
-  right: 0px
-}
+    h3 {
+      right: 0px
+    }
+  }
 
-.tallies li {
-  padding-bottom: 10px;
-}
+  &.active {
 
-.tallies li.inactive {
-  opacity: .2;
-}
+    h3 {
+      right: 0px
+    }
+  }
 
-.tallies li:hover {
-  cursor: pointer;
-}
+  h3 {
+    position: relative;
+    right: -85px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    transition-duration: .3s;
+  }
 
-.tallies .user-mark {
-  top: 2px;
-  margin-right: 15px;
-  width: 15px;
-  height: 15px;
+  li {
+    padding-bottom: 10px;
+
+    &.inactive {
+      opacity: .2;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .user-mark {
+    top: 2px;
+    margin-right: 15px;
+    width: 15px;
+    height: 15px;
+  }
 }
 
 .deadline {
   margin: 0 auto;
   font-size: 1em;
   text-align: center;
+
+  p {
+    margin-bottom: 10px;
+  }
 }
 
-.deadline p {
-  margin-bottom: 10px;
-}
 
 #time {
   color: #FF0000;
@@ -263,30 +286,34 @@ label:hover {
   height: 100%;
   background: rgba(255,255,255,.6);
   top: 0;
+
+  div {
+    text-align: center;
+    margin-top: 200px;
+    margin-bottom: 20px;
+  }
+
+  a {
+    display: block;
+    width: 120px;
+    margin: 0 auto;
+    padding: 20px 39px;
+    border-radius: 4px;
+    background: #343434;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      background: #838383;
+    }
+  }
+
+  p {
+    font-size: 1.2em;
+  }
 }
 
-.login-modal div {
-  text-align: center;
-  margin-top: 200px;
-  margin-bottom: 20px;
-}
 
-.login-modal a {
-  display: block;
-  width: 120px;
-  margin: 0 auto;
-  padding: 20px 39px;
-  border-radius: 4px;
-  background: #343434;
-  text-align: center;
-  color: #fff;
-  text-decoration: none;
-}
 
-.login-modal a:hover {
-  background: #838383;
-}
 
-.login-modal p {
-  font-size: 1.2em;
-}

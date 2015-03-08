@@ -47,6 +47,9 @@ label:hover {
   margin-bottom: 0;
   max-height: 1000px;
 }
+.categories--category.active .clear-winner {
+  display: block;
+}
 .categories--category .clear-winner {
   display: none;
   position: absolute;
@@ -54,9 +57,6 @@ label:hover {
   right: 10px;
   font-size: 1em;
   color: #C0C0C0;
-}
-.categories--category.active .clear-winner {
-  display: block;
 }
 .categories--category .clear-winner:hover {
   cursor: pointer;
@@ -92,26 +92,32 @@ label:hover {
   text-align: center;
   clear: both;
 }
-.nominee .nominee--votes,
-.nominee .nominee--favorites {
+.nominee--votes,
+.nominee--favorites {
   float: left;
   width: 30%;
   height: 34px;
 }
-.nominee .nominee--info {
+.nominee--votes .user-mark {
+  float: right;
+}
+.nominee--favorites .user-mark {
+  float: left;
+}
+.nominee--info {
   float: left;
   width: 40%;
   transition-duration: .3s;
 }
-.nominee .nominee--info h5 {
-  margin-bottom: 10px;
-  color: #B2B2B2;
-}
-.nominee .nominee--info.loser {
+.nominee--info.loser {
   opacity: .2;
 }
-.nominee .nominee--info.loser:hover {
+.nominee--info.loser:hover {
   opacity: .4;
+}
+.nominee--info h5 {
+  margin-bottom: 10px;
+  color: #B2B2B2;
 }
 .user-mark {
   display: inline-block;
@@ -125,6 +131,9 @@ label:hover {
 .user-mark:hover {
   cursor: default;
 }
+.user-mark:hover span {
+  display: block;
+}
 .user-mark.inactive,
 .user-mark.hoverInactive {
   opacity: .2;
@@ -137,15 +146,6 @@ label:hover {
   border-radius: 3px;
   background: #dbdbdb;
   font-size: 13px;
-}
-.user-mark:hover span {
-  display: block;
-}
-.nominee .nominee--votes .user-mark {
-  float: right;
-}
-.nominee .nominee--favorites .user-mark {
-  float: left;
 }
 .tallies {
   position: fixed;
@@ -175,6 +175,12 @@ label:hover {
 .tallies.pinned .pin {
   color: #232323;
 }
+.tallies.pinned h3 {
+  right: 0px;
+}
+.tallies.active h3 {
+  right: 0px;
+}
 .tallies h3 {
   position: relative;
   right: -85px;
@@ -183,10 +189,6 @@ label:hover {
   text-align: center;
   border-bottom: 1px solid #000;
   transition-duration: .3s;
-}
-.tallies.active h3,
-.tallies.pinned h3 {
-  right: 0px;
 }
 .tallies li {
   padding-bottom: 10px;
