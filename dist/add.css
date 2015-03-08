@@ -1,0 +1,33 @@
+.category {
+  margin-bottom: 30px;
+}
+h2 {
+  margin-bottom: 10px;
+  font-size: 2em;
+}
+input[type=text] {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  width: 480px;
+  font-size: 1.1em;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+input[type=submit] {
+  padding: 16px 0;
+  width: 83px;
+  height: 42px;
+  border: 1px solid;
+  background: none;
+  font-size: 1em;
+  line-height: 10px;
+  color: #fff;
+}
+input.nominate {
+  background-color: #5DEC2D;
+}
+input.update {
+  background-color: #EC842D;
+}
+input[type=submit]:hover {
+  cursor: pointer;
+}

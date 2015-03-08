@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concurrent: {
-      dev: ['uglify', 'cssmin', 'shell', 'nodemon', 'watch'],
+      dev: ['uglify', 'less', 'shell', 'nodemon', 'watch'],
       options: {
         logConcurrentOutput: true
       }
@@ -34,18 +34,22 @@ module.exports = function(grunt) {
         }
       }
     },
-    cssmin: {
-      target: {
-        files: [{
-          expand: true,
-          cwd: 'app/www/public/styles',
-          src: ['*.css', '!*.min.css'],
-          dest: 'dist/styles',
-          ext: '.min.css'
-        }],
-        options: {
-          shorthandCompacting: false,
-          roundingPrecision: -1
+    less: {
+      dev: {
+        files: {
+          "dist/styles/common.css": [
+            "app/www/public/styles/reset.less",
+            "app/www/public/styles/common.less",
+            "app/www/public/styles/typography.less",
+            "app/www/public/styles/icon-fonts.less"
+          ],
+          "dist/styles/home.css": "app/www/public/styles/home.less",
+          "dist/styles/add.css": "app/www/public/styles/add.less",
+          "dist/styles/vote.css": "app/www/public/styles/vote.less",
+          "dist/styles/profile.css": [
+            "app/www/public/styles/profile.less",
+            "app/www/public/styles/simplecolorpicker.less"
+          ],
         }
       }
     },
@@ -74,9 +78,9 @@ module.exports = function(grunt) {
       scripts: {
         files: [
           'app/www/public/scripts/*.js',
-          'app/www/public/styles/*.css'
+          'app/www/public/styles/*.less'
         ],
-        tasks: ['uglify', 'cssmin'],
+        tasks: ['uglify', 'less'],
         options: {
           spawn: false,
         }
@@ -85,7 +89,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-shell-spawn');
   grunt.loadNpmTasks('grunt-contrib-watch');
