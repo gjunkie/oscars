@@ -3,6 +3,7 @@ var async = require('async');
 var _ = require('lodash-node');
 var categories = require('../../../data/categories');
 
+/* Sets up initial static categories */
 exports.setUpCategories = {
   handler: {
     waterfall: [
@@ -219,6 +220,7 @@ exports.setUpCategories = {
   }
 };
 
+/* Gets all categories and their nominees with populated data */
 exports.getCategories = {
   handler: {
     waterfall: [
@@ -284,6 +286,7 @@ exports.getCategories = {
   }
 };
 
+/* Gets all categories and their nominees */
 exports.getNominees = {
   handler: {
     waterfall: [
@@ -306,6 +309,10 @@ exports.getNominees = {
   }
 };
 
+/* Adds a film and its corresponding artist. 
+ * Also creates a new nominee and updates the
+ * proper category with the new nominee. 
+ */
 exports.addFilm = {
   handler: {
     waterfall: [
@@ -416,6 +423,10 @@ exports.addFilm = {
   }
 };
 
+/* Adds an artist and its corresponding film. 
+ * Also creates a new nominee and updates the
+ * proper category with the new nominee. 
+ */
 exports.addArtist = {
   handler: {
     waterfall: [
@@ -541,6 +552,7 @@ exports.addArtist = {
   }
 };
 
+/* Adds or changes a user's vote for a particular category */
 exports.vote = {
   handler: {
     waterfall: [
@@ -618,6 +630,7 @@ exports.vote = {
   }
 };
 
+/* Adds or changes a user's favorite for a particular category */
 exports.favorite = {
   handler: {
     waterfall: [
@@ -694,6 +707,7 @@ exports.favorite = {
   }
 };
 
+/* Marks or changes a nominee as the winner */
 exports.winner = {
   handler: {
     waterfall: [
@@ -800,6 +814,7 @@ exports.winner = {
   }
 };
 
+/* Clears a category to have no marked winner */
 exports.clearWinner = {
   handler: {
     waterfall: [
@@ -885,6 +900,7 @@ exports.clearWinner = {
   }
 };
 
+/* Edit a film's name or associated director */
 exports.editFilm = {
   handler: {
     waterfall: [
@@ -949,6 +965,7 @@ exports.editFilm = {
   }
 }
 
+/* Edit an artist's name or associated film */
 exports.editArtist= {
   handler: {
     waterfall: [

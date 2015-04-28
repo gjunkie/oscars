@@ -7,7 +7,11 @@ var userSchema = mongoose.Schema({
   email: String,
   creationDate: { type: Date, required: true, default: Date.now },
   correct: Number,
-  color: String
+  color: String,
+  games: [{
+    type: ObjectId,
+    ref: 'Game'
+  }]
 });
 
 module.exports = mongoose.model('User', userSchema);

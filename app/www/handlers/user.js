@@ -1,4 +1,5 @@
 
+/* Voting page */
 exports.vote = {
   plugins: {
     'hapi-auth-cookie': {
@@ -35,6 +36,7 @@ exports.vote = {
   }
 };
 
+/* User profile page */
 exports.profile = {
   plugins: {
     'hapi-auth-cookie': {
@@ -56,6 +58,7 @@ exports.profile = {
   }
 };
 
+/* User logout */
 exports.logout = {
   handler: {
     apiView: {

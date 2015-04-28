@@ -2,6 +2,7 @@ var async = require('async');
 var _ = require('lodash-node');
 
 // TODO: change name to createUser
+/* Creates a new user */
 exports.login = {
   handler: {
     waterfall: [
@@ -39,6 +40,7 @@ exports.login = {
   }
 };
 
+/* Gets user data */
 exports.user = {
   handler: {
     waterfall: [
@@ -62,6 +64,7 @@ exports.user = {
   }
 };
 
+/* Updates user data */
 exports.update = {
   handler: {
     waterfall: [
@@ -88,6 +91,7 @@ exports.update = {
   }
 }
 
+/* Counts and updates a user's total correct guesses */
 exports.tallies = {
   handler: {
     waterfall: [

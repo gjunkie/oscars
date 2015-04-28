@@ -1,4 +1,5 @@
 
+/* Homepage data */
 exports.homepage = {
   handler: {
     apiView: {
@@ -26,6 +27,7 @@ exports.homepage = {
   }
 };
 
+/* Set up page for inital app load. */
 exports.setup = {
   plugins: {
     'hapi-auth-cookie': {
@@ -51,6 +53,7 @@ exports.setup = {
   }
 };
 
+/* Add nominees page */
 exports.add = {
   plugins: {
     'hapi-auth-cookie': {
