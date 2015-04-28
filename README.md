@@ -13,9 +13,9 @@ I've thrown together some basic styles.
 ###Sample Nomination Page
 ![alt text][nompage]
 
-[homepage]: http://s24.postimg.org/ni4t4eyo1/homepage.png "Homepage"
-[votepage]: http://s24.postimg.org/8aotk26td/vote.png "Voting Page"
-[nompage]: http://s24.postimg.org/ff6mt3e2p/nominate.png "Nomination Page"
+[homepage]: http://postimg.org/image/ni4t4eyo1/ "Homepage"
+[votepage]: http://postimg.org/image/8aotk26td/ "Voting Page"
+[nompage]: http://postimg.org/image/ff6mt3e2p/ "Nomination Page"
 
 ####Known Issues:
 - Film nominations do not support multiple directors
