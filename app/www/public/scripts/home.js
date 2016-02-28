@@ -124,9 +124,6 @@ var clock = document.getElementById("time")
 var targetDate = new Date('Sun Feb 28 2016 17:30:00 GMT-0800 (PST)');
 var now = new Date();
 
-console.log(targetDate)
-console.log(now)
-console.log(now < targetDate)
 if (now < targetDate) {
   clock.innerHTML = countdown(targetDate).toString();
   setInterval(function(){
