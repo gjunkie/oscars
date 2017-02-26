@@ -24,7 +24,7 @@ exports.vote = {
       ],
       before: function(request, reply, data) {
         var date = new Date();
-        var deadline = new Date('Wed Feb 28 2016 17:30:00 GMT-0800 (PST)');
+        var deadline = new Date('Sun Feb 26 2017 17:30:00 GMT-0800 (PST)');
         if (date > deadline) {
           return reply.redirect('/');
         }
