@@ -15,7 +15,7 @@ exports.setUpCategories = {
           {
             name: 'Best Picture',
             slug: 'best-picture',
-            slots: 8,
+            slots: 9,
             primary: 'Film',
             secondary: 'Director'
           },
@@ -106,7 +106,7 @@ exports.setUpCategories = {
           {
             name: 'Makeup and Hairstyling',
             slug: 'makeup-and-hairstyling',
-            slots: 5,
+            slots: 3,
             primary: 'Artist',
             secondary: 'Film'
           },
