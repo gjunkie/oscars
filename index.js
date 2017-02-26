@@ -3,7 +3,7 @@ var mongo = require('mongodb');
 
 var server = new Hapi.Server()
 
-server.connection( { port: process.env.PORT || 8004 } )
+server.connection( { port: process.env.PORT || 5000 } )
 
 server.register([
 
