@@ -15,7 +15,7 @@ var getTallies = function() {
       console.log('error getting tallies');
     }
   });
-}
+};
 
 var clearWinner = function(slug) {
   $.ajax({
@@ -42,7 +42,7 @@ var clearWinner = function(slug) {
       });
     }
   });
-}
+};
 
 $("form").formjax({
   success: function(response) {
@@ -120,7 +120,7 @@ $("form input").on("change", function() {
   $(this).parents('.nominee--info').removeClass('loser').addClass('winner');
 });
 
-var clock = document.getElementById("time")
+var clock = document.getElementById("time");
 var targetDate = new Date('Sun Mar 4 2018 17:30:00 GMT-0800 (PST)');
 var now = new Date();
 
